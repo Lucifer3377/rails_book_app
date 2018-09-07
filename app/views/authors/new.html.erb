@@ -1,2 +1,8 @@
-<h1>Authors#new</h1>
-<p>Find me in app/views/authors/new.html.erb</p>
+<% @page_title = "Author"%>
+<div>
+<%= link_to("<< Back to index",{:action => "index"})%>
+<%= form_tag(:action => "create") do%>
+<%= render(:partial => "form")%>
+<div><%= submit_tag("Add Author")%></div>
+<%end%>
+</div>

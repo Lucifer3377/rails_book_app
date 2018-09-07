@@ -1,2 +1,9 @@
-<h1>Books#delete</h1>
-<p>Find me in app/views/books/delete.html.erb</p>
+<% @page_title = "Book"%>
+<div>
+<%= link_to("<< Back to index",{:action => "index"})%>
+Are you sure you want to Remove this Book ?
+<%= form_tag(:action => "destroy",:id => @book.id) do%>
+<%= @book.name%>
+<%= submit_tag("Remove Book")%>
+<%end%>
+</div>

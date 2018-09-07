@@ -9,6 +9,7 @@ gem 'bson_ext'
 gem 'mongoid_auto_increment_id', "0.7.0"
 #gem "rmagick"
 gem "carrierwave"
+gem 'mongoid_search'
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

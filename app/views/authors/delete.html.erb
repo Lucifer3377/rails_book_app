@@ -1,2 +1,9 @@
-<h1>Authors#delete</h1>
-<p>Find me in app/views/authors/delete.html.erb</p>
+<% @page_title = "Author"%>
+<div>
+<%= link_to("<< Back to index",{:action => "index"})%>
+Are you sure you want to Remove this Author ?
+<%= form_tag(:action => "destroy",:id => @author.id) do%>
+<%= @author.name%>
+<%= submit_tag("Remove Author")%>
+<%end%>
+</div>

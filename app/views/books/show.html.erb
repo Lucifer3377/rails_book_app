@@ -1,2 +1,55 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<% @page_title = "Book"%>
+<div>
+<%= link_to("<< Back to Book Index",{:action => "index"})%>
+<h1>Book details</h1>
+<table>
+<tr>
+<th>Name of Book</th>
+<td><%= @book.name%></td>
+</tr>
+<tr>
+<th>Author Name</th>
+<td><%= Author.search(@book.author_id)[0].name%></td>
+</tr>
+<tr>
+<tr>
+<th>Short Description</th>
+<td><%= @book.s_desc%></td>
+</tr>
+<tr>
+<tr>
+<th>Long Description</th>
+<td><%= @book.l_desc%></td>
+</tr>
+<tr>
+<tr>
+<th>Date Of Production</th>
+<td><%= @book.date_of_prod%></td>
+</tr>
+<tr>
+<tr>
+<th>Price</th>
+<td><%= @book.price%></td>
+</tr>
+<tr>
+<th>Genre</th>
+<% if @book.genre.nil?%>
+    <td>No genre provided</td>
+<%else%>
+    <%@book.genre.each do |data|%>
+        <td><%= data%></td>
+        <%end%>
+<%end%>
+</tr>
+<tr>
+<th>Created</th>
+<td><%= @book.created_at%></td>
+</tr>
+<tr>
+<th>Updated</th>
+<td><%= @book.updated_at%></td>
+</tr>
+</table>
+<%= render(partial: "reviews/show")%>
+<%= link_to("Add a review for Book - #{@book.name}",{:controller => "reviews", :action => "new",:type => "Book", :id => @book.id})%>
+</div>

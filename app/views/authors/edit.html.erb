@@ -1,2 +1,8 @@
-<h1>Authors#edit</h1>
-<p>Find me in app/views/authors/edit.html.erb</p>
+<% @page_title = "Author"%>
+<div>
+<%= link_to("<< Back to index",{:action => "index"})%>
+<%= form_tag(:action => "update",:id => @author.id) do%>
+<%= render(:partial => "form")%>
+<div><%= submit_tag("Update Author")%></div>
+<%end%>
+</div>

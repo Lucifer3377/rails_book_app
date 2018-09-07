@@ -1,2 +1,41 @@
-<h1>Authors#show</h1>
-<p>Find me in app/views/authors/show.html.erb</p>
+<% @page_title = "Author"%>
+<div>
+<%= link_to("<< Back to Author Index",{:action => "index"})%>
+<h1>Author details</h1>
+<table>
+<tr>
+<th>Name</th>
+<td><%= @author.name%></td>
+</tr>
+<tr>
+<th>Biography</th>
+<td><%= @author.biography%></td>
+</tr>
+<tr>
+<th>Academics</th>
+<% if @author.academics.nil?%>
+    <td>No academics provided</td>
+<%else%>
+    <% @author.academics.each do |data|%>
+        <td><%= data%></td>
+        <%end%>
+<%end%>
+</tr>
+<tr>
+<th>Awards</th>
+<% if @author.awards.nil?%>
+    <td>No awards provided</td>
+<%else%>
+    <% @author.awards.each do |data|%>
+        <td><%= data%></td>
+        <%end%>
+<%end%>
+</tr>
+<tr>
+<th>Created</th>
+<td><%= @author.created_at%></td>
+</tr>
+</table>
+<%= render(:partial => "reviews/show")%>
+<%= link_to("Add a review for Author - #{@author.name}",{:controller => "reviews", :action => "new",:type => "Author", :id => @author.id})%>
+</div>

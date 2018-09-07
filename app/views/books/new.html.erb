@@ -1,2 +1,8 @@
-<h1>Books#new</h1>
-<p>Find me in app/views/books/new.html.erb</p>
+<% @page_title = "Book"%>
+<div>
+<%= link_to("<< Back to index",{:action => "index"})%>
+<%= form_tag(:action => "create") do%>
+<%= render(:partial => "form")%>
+<div><%= submit_tag("Add Book")%></div>
+<%end%>
+</div>
