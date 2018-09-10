@@ -17,7 +17,7 @@ class AuthorsController < ApplicationController
       redirect_to(:action => "index")
     else
       flash[:error] = "Error in creating an author"
-      render("create")
+      render("new")
     end
   end
 
@@ -27,9 +27,9 @@ class AuthorsController < ApplicationController
 
   def update
     @author = Author.find(params[:id])
+    puts param_permit
     if @author.update_attributes(param_permit)
       @author.updated_at = Time.now
-      @author.save
       flash[:notice] = "Author has been updated successfully"
       redirect_to(:action => "index")
     else
@@ -40,7 +40,7 @@ class AuthorsController < ApplicationController
 
   def show
     @author = Author.find(params[:id])
-    @reviews = Review.where(:reviewable_type => "Author", :reviewable_id => params[:id].to_i)
+    @reviews = @author.reviews
   end
 
   def delete
@@ -54,6 +54,6 @@ class AuthorsController < ApplicationController
   end
 private
   def param_permit
-    params.require(:author).permit(:name,:biography,:academics_list,:awards_list)
+    params.require(:author).permit(:name,:cover,:biography,:academics_list,:awards_list)
   end
 end

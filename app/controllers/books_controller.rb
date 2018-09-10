@@ -17,7 +17,7 @@ class BooksController < ApplicationController
       redirect_to(:action => "index")
     else
       flash[:error] = "Error in creating a book"
-      render("create")
+      render("new")
     end
   end
 
@@ -40,7 +40,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @reviews = Review.where(:reviewable_type => "Book", :reviewable_id => params[:id].to_i)
+    @reviews = @book.reviews
   end
 
   def delete

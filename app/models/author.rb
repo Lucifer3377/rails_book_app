@@ -1,18 +1,21 @@
+  require "carrierwave/mongoid"
+
 class Author
   include Mongoid::Document
-  #include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps::Created
   include Mongoid::Timestamps::Updated
 
   field :name, type: String, localize: true
   field :biography, type: String
-  #field :pic_png, type: BSON::Binary
   field :academics, type: Array, default: []
   field :awards, type: Array, default: []
+  field :cover, type: String
 
-  validates_presence_of :name
+  mount_uploader :cover, CoverUploader
 
-  has_many :books, validate: false
+  validates_presence_of :name, :academics, :awards, :biography
+
+  has_many :books
   has_many :reviews, as: :reviewable
 
   scope :search, lambda {|q| where(:id => q)}

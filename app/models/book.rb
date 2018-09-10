@@ -1,7 +1,7 @@
 class Book
   include Mongoid::Document
   #include Mongoid::Attributes::Dynamic
-  include Mongoid::Search
+  #include Mongoid::Search
   include Mongoid::Timestamps::Created
   include Mongoid::Timestamps::Updated
 
@@ -18,7 +18,7 @@ class Book
   belongs_to :author
   has_many :reviews, as: :reviewable
 
-  search_in :name, :price, :genre, author: :name
+  #search_in :name, :price, :genre, author: :name
 
   scope :search, lambda {|q| where(:author_id => q)}
 

@@ -1,4 +1,5 @@
-<div>Name<%= text_field(:author, :name)%></div>
-<div>Biography<%= text_area(:author, :biography)%></div>
-<div>Academics <%= text_area(:author, :academics_list)%></div>
-<div>Awards <%= text_area(:author, :awards_list)%></div>
+<div>Name<%= f.text_field(:name)%></div>
+<div>Biography<%= f.text_area(:biography)%></div>
+<div>Academics <%= f.text_area(:academics_list)%></div>
+<div>Awards <%= f.text_area(:awards_list)%></div>
+<div>Upload Image<%= f.file_field(:cover)%></div>

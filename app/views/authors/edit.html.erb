@@ -1,8 +1,8 @@
 <% @page_title = "Author"%>
 <div>
 <%= link_to("<< Back to index",{:action => "index"})%>
-<%= form_tag(:action => "update",:id => @author.id) do%>
-<%= render(:partial => "form")%>
+<%= form_for(:author, :url => {:action => "update", :id => @author.id}) do |f|%>
+<%= render(:partial => "form", :locals => {:f => f})%>
 <div><%= submit_tag("Update Author")%></div>
 <%end%>
 </div>

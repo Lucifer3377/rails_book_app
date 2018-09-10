@@ -6,6 +6,7 @@
 <tr>
 <th>Name</th>
 <td><%= @author.name%></td>
+<td><%= image_tag "#{@author.cover.thumb.url}" if @author.cover? %></td>
 </tr>
 <tr>
 <th>Biography</th>
