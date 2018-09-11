@@ -1,6 +1,14 @@
 <% @page_title = "Book"%>
 <div class="books index">
 <h1>Book</h1>
+<!-- Search Tag -->
+<div>
+<%= form_tag(controller: "books",action: "index", method: :get) do%>
+    <span><%= text_field_tag(:search,params[:search],placeholder: "Search...")%></span>
+    <span><%= button_tag("Search",name: nil, data:{disable_with: "Searching...."})%></span>
+<%end%>
+<%# highlight(HTML.body, params[:search])%>
+</div>
 <%= link_to("Add a new Book",{:action => "new"},:class => "action new")%>
 <%= link_to("Visit Authors page",{:controller => "authors", :action => "index"})%>
 <div><%= pluralize(@books.count,"book")%> found</div>
@@ -13,18 +21,18 @@
 <th>Price</th>
 <th>Action</th></tr>
 <%@books.each do |book|%>
-<tr class ="<%= cycle('odd','even')%>">
-<td><%= book.name%></td>
-<td><%= Author.search(book.author_id)[0].name%></td>
-<td><%= book.date_of_prod%></td>
-<td><%= book.genre_list%></td>
-<td><%= book.price%></td>
-<td>
-<%= link_to("Show",{:action => "show", :id => book.id},:class => "action show")%>
-<%= link_to("Edit",{:action => "edit", :id => book.id},:class => "action edit")%>
-<%= link_to("Delete",{:action => "delete", :id =>book.id},:class => "action delete")%>
-</td>
-</tr>
+    <tr class ="<%= cycle('odd','even')%>">
+    <td><%= book.name%></td>
+    <td><%= book.author.name%></td>
+    <td><%= book.date_of_prod%></td>
+    <td><%= book.genre.join(", ")%></td>
+    <td><%= book.price%></td>
+    <td>
+    <%= link_to("Show",{:action => "show", :id => book.id},:class => "action show")%>
+    <%= link_to("Edit",{:action => "edit", :id => book.id},:class => "action edit")%>
+    <%= link_to("Delete",{:action => "delete", :id =>book.id},:class => "action delete")%>
+    </td>
+    </tr>
 <%end%>
 </table>
 </div>

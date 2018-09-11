@@ -14,6 +14,7 @@ class Author
   mount_uploader :cover, CoverUploader
 
   validates_presence_of :name, :academics, :awards, :biography
+  validates :name, acceptance: true
 
   has_many :books
   has_many :reviews, as: :reviewable

@@ -9,7 +9,7 @@
 </tr>
 <tr>
 <th>Author Name</th>
-<td><%= Author.search(@book.author_id)[0].name%></td>
+<td><%= @book.author.name%></td>
 </tr>
 <tr>
 <tr>
@@ -33,12 +33,10 @@
 </tr>
 <tr>
 <th>Genre</th>
-<% if @book.genre.nil?%>
+<% if @book.genre.blank?%>
     <td>No genre provided</td>
 <%else%>
-    <%@book.genre.each do |data|%>
-        <td><%= data%></td>
-        <%end%>
+    <td><%= @book.genre.join(", ")%></td>
 <%end%>
 </tr>
 <tr>

@@ -1,13 +1,14 @@
 <% @page_title = "Review"%>
+<%= error_messages_for(@review)%>
 <div>
-<% control = "" 
+<% con = "" 
 if @reviewable_type == "Author"
-    control = "authors"
+    con = "authors"
 else
-    control = "books"
+    con = "books"
 end%>
-<%= link_to("<< Back to index",{:controller => control, :action => "index"})%>
-<%= form_tag(:action => "create",:control => control, :reviewable_type => @reviewable_type, :reviewable_id => @reviewable_id) do%>
+<%= link_to("<< Back to index",{:controller => con, :action => "index"})%>
+<%= form_tag(:action => "create",:control => con, :reviewable_type => @reviewable_type, :reviewable_id => @reviewable_id) do%>
 <div>Review Type<%= label(:review, @reviewable_type)%></div>
 <div>Name of Reviewer<%= text_field(:review, :name)%></div>
 <div>Title <%= text_field(:review, :title)%></div>

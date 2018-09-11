@@ -41,6 +41,7 @@ class AuthorsController < ApplicationController
   def show
     @author = Author.find(params[:id])
     @reviews = @author.reviews
+    @id = @author.id
   end
 
   def delete

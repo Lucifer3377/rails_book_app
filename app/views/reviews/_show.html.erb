@@ -5,6 +5,7 @@
 <th>Title</th>
 <th>Description</th>
 <th>Created</th>
+<th>Rate</th>
 </tr>
 <%@reviews.each do |review|%>
 <tr>
@@ -12,6 +13,7 @@
 <td><%= review.title%></td>
 <td><%= review.desc%></td>
 <td><%= review.created_at%></td>
+<td><%= review.star_rate%></td>
 </tr>
 <%end%>
 </table>

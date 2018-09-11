@@ -10,7 +10,7 @@ gem 'mongoid_auto_increment_id', "0.7.0"
 gem "rmagick"
 gem 'carrierwave', '~> 0.11.2'
 gem "carrierwave-mongoid", :require => 'carrierwave'
-#gem 'mongoid_search'
+gem 'mongoid_search'
 gem 'mongoid-grid_fs'#, github: 'ahoward/mongoid-grid_fs'
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 5.0'

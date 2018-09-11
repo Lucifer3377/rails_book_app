@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :people, except: [:show]
+  #resources :people, except: [:show]
 
   root to: "authors#index"
   # The priority is based upon order of creation: first created -> highest priority.
