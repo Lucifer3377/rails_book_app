@@ -2,7 +2,8 @@ class BooksController < ApplicationController
   layout "mylayout"
   def index
     if params[:search].blank?
-      @books = Book.all
+      @books = Book.order_by(:name => :desc)#.page(1).per(100)
+        #paginate(:page => 1, :limit => 10).desc(:_id)
     else
       @books = Book.search(params[:search])
     end
@@ -14,7 +15,7 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(param_permit)
-    date = Date.new(params["date_of_prod(1i)"].to_i,params["date_of_prod(2i)"].to_i,params["date_of_prod(3i)"].to_i)
+    date = DateTime.new(params["book"]["date_of_prod(1i)"].to_i,params["book"]["date_of_prod(2i)"].to_i,params["book"]["date_of_prod(3i)"].to_i)
     puts "\n\n\n\n\nDate #{date}\n\n\n\n\n\n"
     @book.date_of_prod = date
     puts param_permit
@@ -37,6 +38,9 @@ class BooksController < ApplicationController
     # if @book.update_attributes!(param_permit)
     if @book.update(author_id: params[:book][:author_id]) && @book.update(name: params[:book][:name]) && @book.update(s_desc: params[:book][:s_desc]) && @book.update(l_desc: params[:book][:l_desc]) && @book.update(date_of_prod: params[:book][:date_of_prod]) && @book.update(price: params[:book][:price]) && @book.update(genre: params[:book][:genre])
       @book.updated_at = Time.now
+      date = DateTime.new(params["book"]["date_of_prod(1i)"].to_i,params["book"]["date_of_prod(2i)"].to_i,params["book"]["date_of_prod(3i)"].to_i)
+      puts "\n\n\n\n\nDate #{date}\n\n\n\n\n\n"
+      @book.date_of_prod = date
       @book.save
       flash[:notice] = "Book has been updated successfully"
       redirect_to(:action => "index")

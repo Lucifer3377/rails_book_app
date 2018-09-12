@@ -4,7 +4,10 @@ class Book
   #include Mongoid::Search
   include Mongoid::Timestamps::Created
   include Mongoid::Timestamps::Updated
-  include Mongoid::MultiParameterAttributes
+  #include Mongoid::Pagination
+
+  # include Kaminari::MongoidExtension::Criteria
+  # include Kaminari::MongoidExtension::Document
 
   field :name, type: String
   field :s_desc, type: String
@@ -23,7 +26,7 @@ class Book
 
   #search_in :name, :price, :genre, author: %i[name]
 
-  #scope :search, lambda {|q| where(:author_id => q)}
+  # scope :order, lambda {|q| where(:author_id => q)}
   #serialize :genre
 
   # def genre_list=(arg)

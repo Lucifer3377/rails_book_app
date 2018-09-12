@@ -5,13 +5,19 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 gem 'mongoid'
 gem 'bson_ext'
-#gem 'mongoid_auto_inc'
 gem 'mongoid_auto_increment_id', "0.7.0"
 gem "rmagick"
 gem 'carrierwave', '~> 0.11.2'
 gem "carrierwave-mongoid", :require => 'carrierwave'
-gem 'mongoid_search'
-gem 'mongoid-grid_fs'#, github: 'ahoward/mongoid-grid_fs'
+gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
+
+#gem 'mongoid_search'
+#gem 'mongoid-pagination'
+#gem 'will_paginate'
+#gem 'kaminari'
+#gem 'kaminari-mongoid'
+#gem 'grape-kaminari', :github => 'joshmn/grape-kaminari'
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

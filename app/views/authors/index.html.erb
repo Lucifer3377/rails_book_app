@@ -1,24 +1,34 @@
 <% @page_title = "Author"%>
-<div class="authors index">
-<h1>Author</h1>
-<%= link_to("Add a new Author",{:action => "new"},:class => "action new")%>
-<%= link_to("Visit Books page",{:controller => "books", :action => "index"})%>
-<div><%= pluralize(@authors.count,"author")%> found</div>
-<table class="listing" summary = "Author Listing">
-<tr class="header">
-<th>Name</th>
-<th>Books</th>
-<th>Action</th></tr>
-<%@authors.each do |author|%>
-<tr class ="<%= cycle('odd','even')%>">
-<td><%= author.name%></td>
-<td><%= @books.search(author.id).count%></td>
-<td>
-<%= link_to("Show",{:action => "show", :id => author.id},:class => "action show")%>
-<%= link_to("Edit",{:action => "edit", :id => author.id},:class => "action edit")%>
-<%= link_to("Delete",{:action => "delete", :id =>author.id},:class => "action delete")%>
-</td>
-</tr>
-<%end%>
-</table>
-</div>
+<div class = "container">
+    <div class = "page-header">
+        <h1>Author Index</h1>
+        <h5 class = "text-success">(<%= pluralize(@authors.count,"author")%> found )</h5>
+    </div>
+    <div class = "justify-content-around">
+        <%= link_to({:controller => "books", :action => "index"},:class => "btn btn-primary m-top-links") do%>
+            <span class="glyphicon glyphicon-ok"></span>  Visit Books Page
+        <%end%>
+        <%= link_to({:action => "new"},:class => "action new btn btn-primary m-top-links") do%>
+        <span class="glyphicon glyphicon-plus"></span> New Author
+        <%end%>     
+    </div>
+    <div class="row text-white well table-header" summary = "Author Listing">
+        <div class = "col-md-4 text-center">Name</div>
+        <div class = "col-md-4 text-center">Books</div>
+        <div class = "col-md-4 text-center">Action</div>
+    </div>
+    <div class = "well">
+        <%@authors.each do |author|%>
+            <div class ="row list-group <%= cycle('odd','even')%>">
+                <div class = "col-md-4">
+                    <%= link_to(author.name,{:action => "show", :id => author.id},:class => "btn list-group-item")%>
+                </div>
+                <div class = "col-md-4 text-center"><%= author.books.count%></div>
+                <div class = "col-md-4 btn-group text-center">
+                    <%= link_to("Edit",{:action => "edit", :id => author.id},:class => "btn btn-primary text-center")%>
+                    <%= link_to("Delete",{:action => "delete", :id =>author.id},:class => "btn btn-danger text-center")%>
+                </div>
+            </div>
+        <%end%>
+    <div>
+<div>
