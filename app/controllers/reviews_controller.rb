@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
       @review.reviewable_type = params[:reviewable_type]
       @review.save
       flash[:notice] = "Review successfully created"
-      redirect_to(:controller => params[:control], :action => "index")
+      redirect_to(:controller => params[:control], :action => "show", :id => params[:reviewable_id])
     else
       flash[:error] = "Error in creating an review"
       redirect_to(:controller => "reviews", :action => "new", :type => params[:reviewable_type], :id => params[:reviewable_id].to_i)

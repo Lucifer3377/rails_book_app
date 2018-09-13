@@ -1,53 +1,94 @@
 <% @page_title = "Book"%>
-<div>
-<%= link_to("<< Back to Book Index",{:action => "index"})%>
-<h1>Book details</h1>
-<table>
-<tr>
-<th>Name of Book</th>
-<td><%= @book.name%></td>
-</tr>
-<tr>
-<th>Author Name</th>
-<td><%= @book.author.name%></td>
-</tr>
-<tr>
-<tr>
-<th>Short Description</th>
-<td><%= @book.s_desc%></td>
-</tr>
-<tr>
-<tr>
-<th>Long Description</th>
-<td><%= @book.l_desc%></td>
-</tr>
-<tr>
-<tr>
-<th>Date Of Production</th>
-<td><%= @book.date_of_prod%></td>
-</tr>
-<tr>
-<tr>
-<th>Price</th>
-<td><%= @book.price%></td>
-</tr>
-<tr>
-<th>Genre</th>
-<% if @book.genre.blank?%>
-    <td>No genre provided</td>
-<%else%>
-    <td><%= @book.genre.join(", ")%></td>
-<%end%>
-</tr>
-<tr>
-<th>Created</th>
-<td><%= @book.created_at%></td>
-</tr>
-<tr>
-<th>Updated</th>
-<td><%= @book.updated_at%></td>
-</tr>
-</table>
-<%= render(partial: "reviews/show")%>
-<%= link_to("Add a review for Book - #{@book.name}",{:controller => "reviews", :action => "new",:type => "Book", :id => @book.id})%>
+<div class = "container">
+    <div class = "page-header justify-content-between">
+        <span>
+            <%= link_to({:action => "index"},:class => "btn btn-success") do%>
+                <div class="glyphicon glyphicon-arrow-left"></div> Back
+            <%end%>
+        </span>
+        <span>
+            <h3>BOOK DETAILS 
+                <span class="glyphicon glyphicon-arrow-right"></span>
+                <span class = "well"><%= @book.name%></span>
+            </h3>
+        </span>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Author Name</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @book.author.name%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Short Description</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @book.s_desc%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Long Description</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @book.l_desc%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Date Of Production</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @book.date_of_prod%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Price</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @book.price%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Genre</strong>
+        </div>
+        <div class = "col-md-10">
+             <% if @book.genre.blank?%>
+                No genre provided
+            <%else%>
+                <ul>
+                    <%@book.genre.each do |data|%>
+                        <li>
+                            <%= data%>
+                        </li>
+                    <%end%>
+                </ul>
+            <%end%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Created</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @book.created_at%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Updated</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @book.updated_at%>
+        </div>
+    </div>
+    <%= render(partial: "reviews/show")%>
+    <div class = "p-back m-2">
+        <%= link_to("Add a review for Book - #{@book.name}",{:controller => "reviews", :action => "new",:type => "Book", :id => @book.id},:class => "btn btn-primary text-center")%>
+    </div>
 </div>

@@ -11,6 +11,8 @@ gem 'carrierwave', '~> 0.11.2'
 gem "carrierwave-mongoid", :require => 'carrierwave'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
+gem 'snackbarjs-rails'
+
 
 #gem 'mongoid_search'
 #gem 'mongoid-pagination'

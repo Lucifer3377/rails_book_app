@@ -1,9 +1,22 @@
 <% @page_title = "Book"%>
 <div>
-<%= link_to("<< Back to index",{:action => "index"})%>
-Are you sure you want to Remove this Book ?
-<%= form_tag(:action => "destroy",:id => @book.id) do%>
-<%= @book.name%>
-<%= submit_tag("Remove Book")%>
-<%end%>
+    <div class = "modal-dialog modal-md">
+        <div class = "modal-content">
+            <div class = "modal-header">
+            <%= link_to({:action => "index"},:class => "btn btn-success") do%>
+            <span class="glyphicon glyphicon-arrow-left"></span> Back
+            <%end%>
+            <br><br>
+            <h4 class = "modal-title">Are you sure you want to Remove this Book ?</h4>
+            </div>
+            <div class = "modal-body">             
+                <%= form_tag(:action => "destroy",:id => @book.id) do%>
+                <span>Name : <%= @book.name%></span>
+            </div>
+            <div class = "modal-footer text-center">
+                <%= submit_tag("Remove Book",:class => "btn btn-danger")%>
+                <%end%>
+            </div>
+        </div>
+    </div>
 </div>

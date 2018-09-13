@@ -1,8 +1,16 @@
 <% @page_title = "Book"%>
-<div>
-<%= link_to("<< Back to index",{:action => "index"})%>
-<%= form_tag(:action => "update", :id => @book.id) do%>
-<%= render(:partial => "form")%>
-<div><%= submit_tag("Update Book")%></div>
-<%end%>
+<div class = "container-fluid">
+    <div class = "p-back">
+        <%= link_to({:action => "index"},:class => "btn btn-success") do%>
+            <span class="glyphicon glyphicon-arrow-left"></span> Back
+        <%end%>
+    </div>
+    <%= form_for(:book, :url => {:action => "update", :id => @book.id},:class => "form-horizontal") do |f|%>
+        <%= render(:partial => "form", :locals => {:f => f})%>
+        <div class = "form-group">
+            <div class = "col-sm-offset-2 col-sm-10 m-2">
+                <%= submit_tag("Update Book",:class => "btn btn-primary")%>
+            </div>
+        </div>
+    <%end%>
 </div>

@@ -1,7 +1,9 @@
 <% @page_title = "Author"%>
 <div class = "container-fluid">
     <div class = "p-back">
-        <%= link_to("<< Back to index",{:action => "index"},:class => "btn btn-success")%>
+        <%= link_to({:action => "index"},:class => "btn btn-success") do%>
+            <span class="glyphicon glyphicon-arrow-left"></span> Back
+        <%end%>
     </div>
     <%= form_for(:author, :url => {:action => "create"},:class => "form-horizontal") do |f|%>
     <%= render(:partial => "form", :locals => {:f => f})%>

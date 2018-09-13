@@ -1,40 +1,79 @@
 <% @page_title = "Book"%>
-<div class="books index">
-<h1>Book</h1>
-<!-- Search Tag -->
-<div>
-<%= form_tag(controller: "books",action: "index", method: :get) do%>
-    <span><%= text_field_tag(:search,params[:search],placeholder: "Search...")%></span>
-    <span><%= button_tag("Search",name: nil, data:{disable_with: "Searching...."})%></span>
-<%end%>
-<%# highlight(HTML.body, params[:search])%>
+<nav class = "navbar navbar-inverse">
+    <ul class="nav nav-tabs nav-justified">
+        <li>
+            <div class="header text-center text-white">
+                <h2> Book</h2>(<%= pluralize(@books.count,"book")%> found)
+            </div>
+        </li>
+        <!-- Search Tag -->
+        <li>
+            <div class ="mt-2">
+                <%= form_tag(controller: "books",action: "index", method: :get,:class => "form-horizontal") do%>
+                    <div class = "input-group">
+                        <%= text_field_tag(:search,params[:search],placeholder: "Search...",:class => "form-control")%>
+                        <span class = "input-group-btn">
+                            <%= button_tag(name: nil, data:{disable_with: "Searching...."}, :class => "btn btn-primary") do%>
+                                <i class="glyphicon glyphicon-search"></i>
+                            <%end%>
+                        </span>
+                    </div>
+                <%end%>
+                <%# highlight(HTML.body, params[:search])%>
+            </div>
+        </li>
+    </ul>
+</nav>
+<div class="container">    
+    <div>
+        <div class = "justify-content-around">
+            <%= link_to({:controller => "authors", :action => "index"},:class => "btn btn-primary m-top-links") do%>
+                <span class="glyphicon glyphicon-ok"></span>  Visit Authors Page
+            <%end%>
+            <%= link_to({:action => "new"},:class => "action new btn btn-primary m-top-links") do%>
+            <span class="glyphicon glyphicon-plus"></span> New Book
+            <%end%>     
+        </div>
+        <div class="row text-white well well-sm table-header" summary = "Author Listing">
+            <div class = "col-md-2 text-center">Name</div>
+            <div class = "col-md-2 text-center">Author</div>
+            <div class = "col-md-2 text-center">Date of Production</div>
+            <div class = "col-md-2 text-center">Genre</div>
+            <div class = "col-md-2 text-center">Price</div>
+            <div class = "col-md-2 text-center">Action</div>
+        </div>
+        <div class = "well">
+            <%@books.each do |book|%>
+                <div class ="row list-group <%= cycle('odd','even')%>">
+                    <div class = "col-md-2 text-center">
+                        <%= link_to(book.name,{:action => "show", :id => book.id},:class => "btn list-group-item wordwrap")%>
+                    </div>
+                    <div class = "col-md-2 text-center">
+                        <%= book.author.name%>
+                    </div>
+                    <div class = "col-md-2 text-center">
+                        <%= book.date_of_prod%>
+                    </div>
+                    <div class = "col-md-2">
+                        <ul>
+                            <% book.genre.each do |data|%>
+                                <li>
+                                    <%= data%>
+                                </li>
+                            <%end%>
+                        </ul>
+                    </div>
+                    <div class = "col-md-2 text-center">
+                        <%= book.price%>
+                    </div>
+                    <div class = "col-md-2 btn-group center-div">                    
+                    <%= link_to("Edit",{:action => "edit", :id => book.id},:class => "btn btn-primary")%>
+                    <%= link_to("Delete",{:action => "delete", :id =>book.id},:class => "btn btn-danger")%>
+                    </div>
+                </div>
+            <%end%>
+        </div>
+        </table>
+    </div>
 </div>
-<%= link_to("Add a new Book",{:action => "new"},:class => "action new")%>
-<%= link_to("Visit Authors page",{:controller => "authors", :action => "index"})%>
-<div><%= pluralize(@books.count,"book")%> found</div>
-<table class="listing" summary = "Book Listing">
-<tr class="header">
-<th>Name</th>
-<th>Author</th>
-<th>Date of Production</th>
-<th>Genre</th>
-<th>Price</th>
-<th>Action</th></tr>
-<%@books.each do |book|%>
-    <tr class ="<%= cycle('odd','even')%>">
-    <td><%= book.name%></td>
-    <td><%= book.author.name%></td>
-    <td><%= book.date_of_prod%></td>
-    <td><%= book.genre.join(", ")%></td>
-    <td><%= book.price%></td>
-    <td>
-    <%= link_to("Show",{:action => "show", :id => book.id},:class => "action show")%>
-    <%= link_to("Edit",{:action => "edit", :id => book.id},:class => "action edit")%>
-    <%= link_to("Delete",{:action => "delete", :id =>book.id},:class => "action delete")%>
-    </td>
-    </tr>
-<%end%>
-</table>
-</div>
-<hr>
 <%# paginate @books %>

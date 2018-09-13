@@ -23,11 +23,11 @@ class CoverUploader < CarrierWave::Uploader::Base
   process :resize_to_fit => [1500, 1500]
 
   version :tiny_thumb do
-    process :resize_to_fill => [50, 50]
+    process :resize_to_limit => [50, 50]
   end
 
   version :thumb do
-    process :resize_to_limit => [200, 200]
+    process :resize_to_limit => [100, 100]
   end
 
   def extension_whitelist

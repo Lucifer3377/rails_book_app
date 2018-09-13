@@ -7,7 +7,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class = "container">
+    <div class = "container-fluid">
       <%= yield %>
       <%if !flash[:notice].blank?%>
         <div class = "alert alert-info"><%= flash[:notice]%></div>
@@ -16,5 +16,9 @@
         <div class = "alert alert-info"><%= flash[:error]%></div>
       <%end%>
     </div>
+    <!-- <%= javascript_tag do %>
+      window.flashMessages = $.parseJSON('<%=j flash.to_hash.to_json.html_safe %>');
+    <% end %>
+    -->
   </body>
 </html>

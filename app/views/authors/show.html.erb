@@ -1,42 +1,82 @@
 <% @page_title = "Author"%>
-<div>
-<%= link_to("<< Back to Author Index",{:action => "index"})%>
-<h1>Author details</h1>
-<table>
-<tr>
-<th>Name</th>
-<td><%= @author.name%></td>
-<td><%= image_tag "#{@author.cover.thumb.url}", :class => "img-fluid" if @author.cover? %></td>
-</tr>
-<tr>
-<th>Biography</th>
-<td><%= @author.biography%></td>
-</tr>
-<tr>
-<th>Academics</th>
-<% if @author.academics.nil?%>
-    <td>No academics provided</td>
-<%else%>
-    <% @author.academics.each do |data|%>
-        <td><%= data%></td>
-        <%end%>
-<%end%>
-</tr>
-<tr>
-<th>Awards</th>
-<% if @author.awards.nil?%>
-    <td>No awards provided</td>
-<%else%>
-    <% @author.awards.each do |data|%>
-        <td><%= data%></td>
-        <%end%>
-<%end%>
-</tr>
-<tr>
-<th>Created</th>
-<td><%= @author.created_at%></td>
-</tr>
-</table>
-<%= render(:partial => "reviews/show")%>
-<%= link_to("Add a review for Author - #{@author.name}",{:controller => "reviews", :action => "new",:type => "Author", :id => @author.id})%>
+<div class = "container">
+    <div class = "page-header justify-content-between">
+        <span>
+            <%= link_to({:action => "index"},:class => "btn btn-success") do%>
+                <div class="glyphicon glyphicon-arrow-left"></div> Back
+            <%end%>
+        </span>
+        <span>
+            <h3>AUTHOR DETAILS 
+                <span class="glyphicon glyphicon-arrow-right"></span>
+                <span class = "well"><%= @author.name%></span>
+            </h3>
+        </span>
+        <span><%= image_tag "#{@author.cover.tiny_thumb.url}", :class => "img-fluid" if @author.cover? %></span>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Biography</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @author.biography%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Academics</strong>
+        </div>
+        <div class = "col-md-10">
+            <% if @author.academics.nil?%>
+                <td>No academics provided</td>
+            <%else%>
+            <ul>
+                <% @author.academics.each do |data|%>
+                    <li>
+                        <%= data%>
+                    </li>
+                <%end%>
+            </ul>
+            <%end%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Awards</strong>
+        </div>
+        <div class = "col-md-10">
+            <% if @author.awards.nil?%>
+                <td>No awards provided</td>
+            <%else%>
+            <ul>
+                <% @author.awards.each do |data|%>
+                    <li>
+                        <%= data%>
+                    </li>
+                <%end%>
+            </ul>
+            <%end%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Created At</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @author.created_at%>
+        </div>
+    </div>
+    <div class = "row well">
+        <div class = "col-md-2">
+            <strong>Updated At</strong>
+        </div>
+        <div class = "col-md-10">
+            <%= @author.updated_at%>
+        </div>
+    </div>
+    <hr>
+    <%= render(:partial => "reviews/show")%>
+    <div class = "p-back m-2">
+        <%= link_to("Add a review for Author - #{@author.name}",{:controller => "reviews", :action => "new",:type => "Author", :id => @author.id},:class => "btn btn-primary text-center")%>
+    </div>
 </div>

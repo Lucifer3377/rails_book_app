@@ -41,7 +41,7 @@ class Book
     puts "\n\nInside Search\n\n"
     if search
       puts "\n\nSearching.....\n\n"
-      any_of({name: /#{search}/i},{s_desc: /#{search}/i},{genre: /#{search}/i})#,{author: %i[name] => /#{search}/i})
+      any_of({name: /#{search}/i},{s_desc: /#{search}/i},{genre: /#{search}/i},{price: /#{search}/i})#,{author: %i[name] => /#{search}/i})
     end
   end
 

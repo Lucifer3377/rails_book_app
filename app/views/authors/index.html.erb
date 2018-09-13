@@ -1,9 +1,16 @@
 <% @page_title = "Author"%>
+<nav class = "navbar navbar-inverse">
+    <ul class="nav nav-tabs nav-justified">
+        <li>
+            <div class="text-center text-white">
+                <h2>Author Index</h2>
+                <h5>(<%= pluralize(@authors.count,"author")%> found )</h5>
+            </div>
+        </li>
+    </ul>
+</nav>
+
 <div class = "container">
-    <div class = "page-header">
-        <h1>Author Index</h1>
-        <h5 class = "text-success">(<%= pluralize(@authors.count,"author")%> found )</h5>
-    </div>
     <div class = "justify-content-around">
         <%= link_to({:controller => "books", :action => "index"},:class => "btn btn-primary m-top-links") do%>
             <span class="glyphicon glyphicon-ok"></span>  Visit Books Page
@@ -12,7 +19,7 @@
         <span class="glyphicon glyphicon-plus"></span> New Author
         <%end%>     
     </div>
-    <div class="row text-white well table-header" summary = "Author Listing">
+    <div class="row text-white well well-sm table-header" summary = "Author Listing">
         <div class = "col-md-4 text-center">Name</div>
         <div class = "col-md-4 text-center">Books</div>
         <div class = "col-md-4 text-center">Action</div>

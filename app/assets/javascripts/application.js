@@ -11,4 +11,11 @@
 // about supported directives.
 //          
 //= require bootstrap
+//= require snackbar
 //= require_tree .
+
+/*
+$.each( flashMessages, function(key, value){
+    $.snackbar({content: value, style: key, timeout: 10000});
+  });
+*/

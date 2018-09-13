@@ -1,19 +1,42 @@
 <% @page_title = "Review"%>
 <%= error_messages_for(@review)%>
 <div>
-<% con = "" 
-if @reviewable_type == "Author"
-    con = "authors"
-else
-    con = "books"
-end%>
-<%= link_to("<< Back to index",{:controller => con, :action => "index"})%>
-<%= form_tag(:action => "create",:control => con, :reviewable_type => @reviewable_type, :reviewable_id => @reviewable_id) do%>
-<div>Review Type<%= label(:review, @reviewable_type)%></div>
-<div>Name of Reviewer<%= text_field(:review, :name)%></div>
-<div>Title <%= text_field(:review, :title)%></div>
-<div>Description<%= text_area(:review, :desc)%></div>
-<div>Rate(Out of 5) <%= text_field(:review, :star_rate)%></div>
-<div><%= submit_tag("Submit Review")%></div>
-<%end%>
+    <% con = "" 
+    if @reviewable_type == "Author"
+        con = "authors"
+    else
+        con = "books"
+    end%>
+    <div class = "p-back">
+        <%= link_to({:controller => con, :action => "show", :id => @reviewable_id},:class => "btn btn-success") do%>
+            <span class="glyphicon glyphicon-arrow-left"></span> Back
+        <%end%>
+    </div>
+    <%= form_tag(:action => "create",:control => con, :reviewable_type => @reviewable_type, :reviewable_id => @reviewable_id,:class => "form-horizontal") do%>
+        <div class = "form-group m-2">
+            <%= label(:review,"Review Type",:class => "control-label col-sm-4")%>
+            <div class = "col-sm-8"><%= label(:review, @reviewable_type,:class => "form-control")%></div>
+        </div>
+        <div class = "form-group m-2 pt-2">
+            <%= label(:review, :name, "Name of Reviewer",:class => "control-label col-sm-4")%>
+            <div class = "col-sm-8"><%= text_field(:review, :name,:class => "form-control")%></div>
+        </div>
+        <div class = "form-group m-2">
+            <%= label(:review, :title, "Title",:class => "control-label col-sm-4")%>
+            <div class = "col-sm-8"><%= text_field(:review, :title, :class => "form-control")%></div>
+        </div>
+        <div class = "form-group m-2 pt-2">
+            <%= label(:review, :desc, "Description",:class => "control-label col-sm-4")%>
+            <div class = "col-sm-8"><%= text_area(:review, :desc, :class => "form-control")%></div>
+        </div>
+        <div class = "form-group m-2 pt-2">
+            <%= label(:review, :star_rate, "Rate(Out of 5)",:class => "control-label col-sm-4")%>
+            <div class = "col-sm-8"><%= text_field(:review, :star_rate, :class => "form-control")%></div>
+        </div>
+        <div class = "form-group">
+            <div class = "col-sm-offset-2 col-sm-10 m-2">
+                <%= submit_tag("Submit Review",:class => "btn btn-primary")%>
+            </div>
+        </div>
+    <%end%>
 </div>

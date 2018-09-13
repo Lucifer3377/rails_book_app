@@ -3,7 +3,10 @@
     <div class = "modal-dialog modal-md">
         <div class = "modal-content">
             <div class = "modal-header">
-            <%= link_to("<< Back to index",{:action => "index"},:class => "btn btn-success")%>
+            <%= link_to({:action => "index"},:class => "btn btn-success") do%>
+            <span class="glyphicon glyphicon-arrow-left"></span> Back
+            <%end%>
+            <br><br>
             <h4 class = "modal-title">Are you sure you want to Remove this Author ?</h4>
             </div>
             <div class = "modal-body">             

@@ -1,20 +1,41 @@
 <div>
-<h1>Reviews</h1>
-<table>
-<tr><th>Name</th>
-<th>Title</th>
-<th>Description</th>
-<th>Created</th>
-<th>Rate</th>
-</tr>
-<%@reviews.each do |review|%>
-<tr>
-<td><%= review.name%></td>
-<td><%= review.title%></td>
-<td><%= review.desc%></td>
-<td><%= review.created_at%></td>
-<td><%= review.star_rate%></td>
-</tr>
-<%end%>
-</table>
+    <div class = "page-header justify-content-end">
+        <span><h1>REVIEWS</h1></span>
+    </div>
+    <div class = "row well well-sm table-header text-center text-white">
+        <div class = "col-md-2">
+            Name
+        </div>
+        <div class = "col-md-2">
+            Title
+        </div>
+        <div class = "col-md-2">
+            Description
+        </div>
+        <div class = "col-md-2">
+            Rate(Out of 5)
+        </div>
+        <div class = "col-md-2">
+            Created
+        </div>
+    </div>
+    <%@reviews.each do |review|%>
+        <div class = "row well text-center">
+            <div class = "col-md-2">
+                <%= review.name%>
+            </div>
+            <div class = "col-md-2">
+                <%= review.title%>
+            </div>
+            <div class = "col-md-2">
+                <%= review.desc%>
+            </div>
+            <div class = "col-md-2">
+                <%= review.star_rate%>
+            </div>
+            <div class = "col-md-2">
+                <%= review.created_at%>
+            </div>
+        </div>
+    <%end%>
 </div>
