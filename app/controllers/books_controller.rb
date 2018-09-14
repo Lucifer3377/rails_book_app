@@ -2,10 +2,10 @@ class BooksController < ApplicationController
   layout "mylayout"
   def index
     if params[:search].blank?
-      @books = Book.order_by(:name => :desc)#.page(1).per(100)
+      @books = Book.order_by(:name => :desc).paginate(:page => params[:page], :per_page => 3)
         #paginate(:page => 1, :limit => 10).desc(:_id)
     else
-      @books = Book.search(params[:search])
+      @books = Book.search(params[:search]).paginate(:page => params[:page], :per_page => 3)
     end
   end
 

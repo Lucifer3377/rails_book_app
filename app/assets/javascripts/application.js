@@ -12,10 +12,29 @@
 //          
 //= require bootstrap
 //= require snackbar
+//= require jquery
+//= require popper
+//= require turbolinks
+//= require_self
 //= require_tree .
 
-/*
-$.each( flashMessages, function(key, value){
+var ready;
+ready = function() {
+  $.each( flashMessages, function(key, value){
     $.snackbar({content: value, style: key, timeout: 10000});
   });
+};
+$(document).ready(ready);
+$(document).on('page:load', ready);
+
+/*
+$(document).on('turbolinks:load', function() {
+  $.each( flashMessages, function(key, value){
+    $.snackbar({content: value, style: key, timeout: 10000});
+  });
+});
+
+$(document).on('ready page:load', function () {
+  // Actions to do
+});
 */

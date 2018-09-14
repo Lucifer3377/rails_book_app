@@ -12,11 +12,11 @@
  *
  */
  @import "bootstrap-sprockets";
+ @import "bootstrap/variables";
  @import "bootstrap";
- @import "main";
- 
- /*
  @import "snackbar";
+ @import "main";
+ @import "paginate";
 
  .snackbar.error {
     background-color: red;
@@ -29,4 +29,3 @@
     background-color: green;
   }
  
-*/

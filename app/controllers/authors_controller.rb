@@ -1,8 +1,15 @@
 class AuthorsController < ApplicationController
   layout "mylayout"
   def index
-    @authors = Author.all
+    @authors = Author.paginate(:page => params[:page], :per_page => 4)
     @books = Book.all
+  end
+
+  def cool
+    respond_to do |format|
+    format.html
+    format.js
+    end
   end
 
   def new

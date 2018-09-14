@@ -1,24 +1,30 @@
 <% @page_title = "Author"%>
-<nav class = "navbar navbar-inverse">
-    <ul class="nav nav-tabs nav-justified">
-        <li>
-            <div class="text-center text-white">
-                <h2>Author Index</h2>
-                <h5>(<%= pluralize(@authors.count,"author")%> found )</h5>
-            </div>
-        </li>
-    </ul>
-</nav>
-
 <div class = "container">
     <div class = "justify-content-around">
-        <%= link_to({:controller => "books", :action => "index"},:class => "btn btn-primary m-top-links") do%>
-            <span class="glyphicon glyphicon-ok"></span>  Visit Books Page
-        <%end%>
         <%= link_to({:action => "new"},:class => "action new btn btn-primary m-top-links") do%>
         <span class="glyphicon glyphicon-plus"></span> New Author
-        <%end%>     
+        <%end%>
+        
+        <!-- Loading window 
+        <%= link_to 'Add user', "cool",  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-lg'}  %>
+        <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content"></div>
+            </div>
+        </div>
+        -->
+
     </div>
+
+    <div class = "row">
+        <div class="digg_pagination col-md-8 col-md-offset-4">
+            <div class="page_info">
+                <%= page_entries_info @authors %>
+            </div>
+            <%= will_paginate @authors, :container => false %>
+        </div>
+    </div>
+
     <div class="row text-white well well-sm table-header" summary = "Author Listing">
         <div class = "col-md-4 text-center">Name</div>
         <div class = "col-md-4 text-center">Books</div>
@@ -28,7 +34,7 @@
         <%@authors.each do |author|%>
             <div class ="row list-group <%= cycle('odd','even')%>">
                 <div class = "col-md-4">
-                    <%= link_to(author.name,{:action => "show", :id => author.id},:class => "btn list-group-item")%>
+                    <%= link_to(author.name,{:action => "show", :id => author.id},:class => "btn list-group-item text-capitalize")%>
                 </div>
                 <div class = "col-md-4 text-center"><%= author.books.count%></div>
                 <div class = "col-md-4 btn-group text-center">

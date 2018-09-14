@@ -9,7 +9,7 @@
         <span>
             <h3>AUTHOR DETAILS 
                 <span class="glyphicon glyphicon-arrow-right"></span>
-                <span class = "well"><%= @author.name%></span>
+                <span class = "well text-capitalize"><%= @author.name%></span>
             </h3>
         </span>
         <span><%= image_tag "#{@author.cover.tiny_thumb.url}", :class => "img-fluid" if @author.cover? %></span>

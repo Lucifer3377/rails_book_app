@@ -1,38 +1,18 @@
 <% @page_title = "Book"%>
-<nav class = "navbar navbar-inverse">
-    <ul class="nav nav-tabs nav-justified">
-        <li>
-            <div class="header text-center text-white">
-                <h2> Book</h2>(<%= pluralize(@books.count,"book")%> found)
-            </div>
-        </li>
-        <!-- Search Tag -->
-        <li>
-            <div class ="mt-2">
-                <%= form_tag(controller: "books",action: "index", method: :get,:class => "form-horizontal") do%>
-                    <div class = "input-group">
-                        <%= text_field_tag(:search,params[:search],placeholder: "Search...",:class => "form-control")%>
-                        <span class = "input-group-btn">
-                            <%= button_tag(name: nil, data:{disable_with: "Searching...."}, :class => "btn btn-primary") do%>
-                                <i class="glyphicon glyphicon-search"></i>
-                            <%end%>
-                        </span>
-                    </div>
-                <%end%>
-                <%# highlight(HTML.body, params[:search])%>
-            </div>
-        </li>
-    </ul>
-</nav>
 <div class="container">    
     <div>
         <div class = "justify-content-around">
-            <%= link_to({:controller => "authors", :action => "index"},:class => "btn btn-primary m-top-links") do%>
-                <span class="glyphicon glyphicon-ok"></span>  Visit Authors Page
-            <%end%>
             <%= link_to({:action => "new"},:class => "action new btn btn-primary m-top-links") do%>
             <span class="glyphicon glyphicon-plus"></span> New Book
             <%end%>     
+        </div>
+        <div class = "row">
+            <div class="digg_pagination col-md-8 col-md-offset-4">
+                <div class="page_info">
+                    <%= page_entries_info @books %>
+                </div>
+                <%= will_paginate @books, :container => false %>
+            </div>
         </div>
         <div class="row text-white well well-sm table-header" summary = "Author Listing">
             <div class = "col-md-2 text-center">Name</div>
@@ -46,9 +26,9 @@
             <%@books.each do |book|%>
                 <div class ="row list-group <%= cycle('odd','even')%>">
                     <div class = "col-md-2 text-center">
-                        <%= link_to(book.name,{:action => "show", :id => book.id},:class => "btn list-group-item wordwrap")%>
-                    </div>
-                    <div class = "col-md-2 text-center">
+                        <%= link_to(book.name,{:action => "show", :id => book.id},:class => "btn list-group-item wordwrap text-capitalize")%>
+                    </div> 
+                    <div class = "col-md-2 text-center text-capitalize">
                         <%= book.author.name%>
                     </div>
                     <div class = "col-md-2 text-center">

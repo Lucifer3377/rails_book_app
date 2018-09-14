@@ -18,30 +18,17 @@ class Book
   field :genre, type: Array, default: []
 
   validates_presence_of :name,:s_desc,:price, :genre, :l_desc, :author_id
-  validates_numericality_of :price, greater_than: 0, :only_integer => true, :message => "should be greater than zero"
+  validates_numericality_of :price, greater_than: 0, :only_integer => true, :message => "should be an integer greater than zero"
   
 
   belongs_to :author
   has_many :reviews, as: :reviewable
 
-  #search_in :name, :price, :genre, author: %i[name]
-
-  # scope :order, lambda {|q| where(:author_id => q)}
-  #serialize :genre
-
-  # def genre_list=(arg)
-  #   self.genre = arg.split(",").map {|v| v.strip}
-  # end
-
-  # def genre_list
-  #   self.genre.join(", ")
-  # end
-
   def self.search(search)
     puts "\n\nInside Search\n\n"
     if search
       puts "\n\nSearching.....\n\n"
-      any_of({name: /#{search}/i},{s_desc: /#{search}/i},{genre: /#{search}/i},{price: /#{search}/i})#,{author: %i[name] => /#{search}/i})
+      any_of({name: /#{search}/i},{s_desc: /#{search}/i},{genre: /#{search}/i})#,{Author.name: /#{search}/i})#,{author: %i[name] => /#{search}/i})
     end
   end
 

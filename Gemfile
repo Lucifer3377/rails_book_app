@@ -10,8 +10,18 @@ gem "rmagick"
 gem 'carrierwave', '~> 0.11.2'
 gem "carrierwave-mongoid", :require => 'carrierwave'
 gem 'bootstrap-sass'
+gem 'sprockets-rails', '~> 3.0', '>= 3.0.4'
 gem 'autoprefixer-rails'
-gem 'snackbarjs-rails'
+gem 'snackbarjs-rails', '~> 1.0'
+gem 'sass-rails', '>= 3.2'
+
+#for pagination
+gem "will_paginate_mongoid"
+
+#needed in modal
+gem 'popper_js'
+gem 'jquery-rails'
+gem 'turbolinks'
 
 
 #gem 'mongoid_search'
