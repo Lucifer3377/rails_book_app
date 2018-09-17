@@ -169,3 +169,61 @@ body{
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
+
+
+//nav bar customised
+
+div#banner {
+    background-color: black;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display:flex;
+    align-items:center;
+  }
+  
+  nav#menu {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  nav#menu ul {
+    background-color: red;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    display: inline;
+  }
+  
+  nav#menu ul li {
+    padding: 0px;
+    margin: 0px;
+    display: inline;
+    vertical-align: middle;
+    color: white;
+  }
+  
+  nav#menu ul li a {
+    padding: 0px;
+    margin: 0px;
+    width: 60px;
+    display: inline-block;
+    color: white;
+  }
+
+  .nav-link{
+      color: white;
+  }
+
+  .nav-item:active{
+      color: orange;
+  }
+
+  .nav-link:hover{
+      background: yellow;
+      color: black;
+  }

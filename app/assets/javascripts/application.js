@@ -10,14 +10,13 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //          
-//= require bootstrap
-//= require snackbar
 //= require jquery
-//= require popper
-//= require turbolinks
+//= require jquery_ujs
+//= require bootstrap
 //= require_self
 //= require_tree .
 
+/*
 var ready;
 ready = function() {
   $.each( flashMessages, function(key, value){
@@ -26,7 +25,7 @@ ready = function() {
 };
 $(document).ready(ready);
 $(document).on('page:load', ready);
-
+*/
 /*
 $(document).on('turbolinks:load', function() {
   $.each( flashMessages, function(key, value){

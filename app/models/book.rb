@@ -1,9 +1,9 @@
+require "carrierwave/mongoid"
 class Book
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   #include Mongoid::Search
-  include Mongoid::Timestamps::Created
-  include Mongoid::Timestamps::Updated
+  include Mongoid::Timestamps
   #include Mongoid::Pagination
 
   # include Kaminari::MongoidExtension::Criteria
@@ -16,6 +16,9 @@ class Book
   field :date_of_prod, type: Date
   field :price, type: Integer, default: 0
   field :genre, type: Array, default: []
+  field :cover, type: String
+
+  mount_uploader :cover, CoverUploader
 
   validates_presence_of :name,:s_desc,:price, :genre, :l_desc, :author_id
   validates_numericality_of :price, greater_than: 0, :only_integer => true, :message => "should be an integer greater than zero"

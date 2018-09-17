@@ -1,0 +1,9 @@
+$("ul.errors").html("")
+<% if @author.errors.any? %>
+  <% @author.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $(".author-index").html("<%= escape_javascript(render 'index') %>")
+  $("#author-modal").modal("hide")
+<% end %>

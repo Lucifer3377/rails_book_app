@@ -5,13 +5,6 @@ class AuthorsController < ApplicationController
     @books = Book.all
   end
 
-  def cool
-    respond_to do |format|
-    format.html
-    format.js
-    end
-  end
-
   def new
     @author = Author.new
   end
@@ -36,7 +29,7 @@ class AuthorsController < ApplicationController
     @author = Author.find(params[:id])
     puts param_permit
     if @author.update_attributes(param_permit)
-      @author.updated_at = Time.now
+      #@author.updated_at = Time.now
       flash[:notice] = "Author has been updated successfully"
       redirect_to(:action => "index")
     else
@@ -53,12 +46,17 @@ class AuthorsController < ApplicationController
 
   def delete
     @author = Author.find(params[:id])
+    respond_to do |format|
+      format.js #{render template: "authors/delete.js.erb"}
+    end
   end
 
   def destroy
     @author = Author.find(params[:id]).destroy
     flash[:notice] = "Author removed successfully"
-    redirect_to(:action => "index")
+    respond_to do |format|
+      format.js {render inline: "location.reload();" }
+    end
   end
 private
   def param_permit

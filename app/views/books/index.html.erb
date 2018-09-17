@@ -6,6 +6,7 @@
             <span class="glyphicon glyphicon-plus"></span> New Book
             <%end%>     
         </div>
+        <div id="author-modal" class="modal fade"></div>
         <div class = "row">
             <div class="digg_pagination col-md-8 col-md-offset-4">
                 <div class="page_info">
@@ -48,7 +49,7 @@
                     </div>
                     <div class = "col-md-2 btn-group center-div">                    
                     <%= link_to("Edit",{:action => "edit", :id => book.id},:class => "btn btn-primary")%>
-                    <%= link_to("Delete",{:action => "delete", :id =>book.id},:class => "btn btn-danger")%>
+                    <%= link_to("Delete",delete_book_path(book),remote: true,:class => "btn btn-danger")%>
                     </div>
                 </div>
             <%end%>

@@ -4,17 +4,10 @@
         <%= link_to({:action => "new"},:class => "action new btn btn-primary m-top-links") do%>
         <span class="glyphicon glyphicon-plus"></span> New Author
         <%end%>
-        
-        <!-- Loading window 
-        <%= link_to 'Add user', "cool",  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-lg'}  %>
-        <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content"></div>
-            </div>
-        </div>
-        -->
 
     </div>
+
+    <div id="author-modal" class="modal fade"></div>
 
     <div class = "row">
         <div class="digg_pagination col-md-8 col-md-offset-4">
@@ -39,9 +32,11 @@
                 <div class = "col-md-4 text-center"><%= author.books.count%></div>
                 <div class = "col-md-4 btn-group text-center">
                     <%= link_to("Edit",{:action => "edit", :id => author.id},:class => "btn btn-primary text-center")%>
-                    <%= link_to("Delete",{:action => "delete", :id =>author.id},:class => "btn btn-danger text-center")%>
+                    <%= link_to("Delete",delete_author_path(author), :remote => true, :class => "btn btn-danger text-center")%>
                 </div>
             </div>
         <%end%>
     <div>
+
+    
 <div>

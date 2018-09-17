@@ -36,8 +36,8 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     puts "\n\n\nThese are the attributes as usual #{params}\n\n\n"
     # if @book.update_attributes!(param_permit)
-    if @book.update(author_id: params[:book][:author_id]) && @book.update(name: params[:book][:name]) && @book.update(s_desc: params[:book][:s_desc]) && @book.update(l_desc: params[:book][:l_desc]) && @book.update(date_of_prod: params[:book][:date_of_prod]) && @book.update(price: params[:book][:price]) && @book.update(genre: params[:book][:genre])
-      @book.updated_at = Time.now
+    if @book.update(author_id: params[:book][:author_id]) && @book.update(name: params[:book][:name]) && @book.update(s_desc: params[:book][:s_desc]) && @book.update(l_desc: params[:book][:l_desc]) && @book.update(date_of_prod: params[:book][:date_of_prod]) && @book.update(price: params[:book][:price]) && @book.update(genre: params[:book][:genre] && @book.update(cover: params[:book][:cover]))
+      #@book.updated_at = Time.now
       date = DateTime.new(params["book"]["date_of_prod(1i)"].to_i,params["book"]["date_of_prod(2i)"].to_i,params["book"]["date_of_prod(3i)"].to_i)
       puts "\n\n\n\n\nDate #{date}\n\n\n\n\n\n"
       @book.date_of_prod = date
@@ -59,17 +59,22 @@ class BooksController < ApplicationController
 
   def delete
     @book = Book.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
     @book = Book.find(params[:id]).destroy
     flash[:notice] = "Book removed successfully"
-    redirect_to(:action => "index")
+    respond_to do |format|
+      format.js {render inline: "location.reload();" }
+    end
   end
 
 private
   def param_permit
     params[:book][:genre] ||= []
-    params.require(:book).permit(:author_id,:name,:s_desc,:l_desc,:date_of_prod,:price,genre: [])
+    params.require(:book).permit(:author_id,:cover,:name,:s_desc,:l_desc,:date_of_prod,:price,genre: [])
   end
 end

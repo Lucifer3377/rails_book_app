@@ -12,6 +12,8 @@
                 <span class = "well text-capitalize"><%= @book.name%></span>
             </h3>
         </span>
+        <span><%= image_tag "#{@book.cover.tiny_thumb.url}", :class => "img-fluid" if @book.cover? %></span>
+
     </div>
     <div class = "row well">
         <div class = "col-md-2">

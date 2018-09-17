@@ -9,19 +9,20 @@ gem 'mongoid_auto_increment_id', "0.7.0"
 gem "rmagick"
 gem 'carrierwave', '~> 0.11.2'
 gem "carrierwave-mongoid", :require => 'carrierwave'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.2.0'
+#gem 'bootstrap', '~> 4.1.3'
 gem 'sprockets-rails', '~> 3.0', '>= 3.0.4'
 gem 'autoprefixer-rails'
-gem 'snackbarjs-rails', '~> 1.0'
+#gem 'snackbarjs-rails', '~> 1.0'
 gem 'sass-rails', '>= 3.2'
 
 #for pagination
 gem "will_paginate_mongoid"
 
 #needed in modal
-gem 'popper_js'
+#gem 'popper_js'
 gem 'jquery-rails'
-gem 'turbolinks'
+#gem 'turbolinks'
 
 
 #gem 'mongoid_search'

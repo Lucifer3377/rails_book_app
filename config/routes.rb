@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
   #resources :people, except: [:show]
 
+  resources :authors, :books do
+    get "delete", on: :member
+  end
+  
   root to: "authors#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
