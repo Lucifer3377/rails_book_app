@@ -17,6 +17,7 @@ class Book
   field :price, type: Integer, default: 0
   field :genre, type: Array, default: []
   field :cover, type: String
+  field :out_of_stock, type: Boolean, default: false
 
   mount_uploader :cover, CoverUploader
 
@@ -27,22 +28,13 @@ class Book
   belongs_to :author
   has_many :reviews, as: :reviewable
 
+  scope :instock, ->{where(out_of_stock: false)}
+
   def self.search(search)
     puts "\n\nInside Search\n\n"
     if search
       puts "\n\nSearching.....\n\n"
       any_of({name: /#{search}/i},{s_desc: /#{search}/i},{genre: /#{search}/i})#,{Author.name: /#{search}/i})#,{author: %i[name] => /#{search}/i})
     end
-  end
-
-  def self.genre_types
-    ["Science fiction",
-      "Satire",
-      "Drama",
-      "Action",
-      "Adventure",
-      "Romance",
-      "Mystery",
-      "Horror"]
   end
 end

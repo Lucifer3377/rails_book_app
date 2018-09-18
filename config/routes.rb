@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   #resources :people, except: [:show]
-
+  get 'authors/trend', to: "authors#trend"
+  
   resources :authors, :books do
     get "delete", on: :member
   end

@@ -1,0 +1,8 @@
+<%= error_messages_for(@book)%>
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <%= form_for :book,url: books_path ,remote: true, :class => "form-horizontal", authenticity_token: true, html: { style: "display:inline;" } do |f| %>
+        <%= render partial: "form", :locals => {:f => f} %>
+    <% end %>
+  </div>
+</div>

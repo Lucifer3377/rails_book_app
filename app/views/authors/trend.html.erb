@@ -1,0 +1,28 @@
+<% @page_title = "Trending"%>
+<div class = "container">
+    <div class = "row">
+        <div class="col-md-12 text-left">
+            <h2>Trending Authors</h2>
+        </div>
+    </div>
+    <div class = "row">
+        <div class="col-md-12">
+            <%@authors.each do |author|%>
+                <span class = "well well-sm"><%= link_to(author.name,author_path(author),:class => "btn")%></span>
+            <%end%>
+        </div>
+    </div>
+    <hr>
+    <div class = "row">
+        <div class="col-md-12 text-left">
+            <h2>Trending Books</h2>
+        </div>
+    </div>
+    <div class = "row">
+        <div class="col-md-12">
+            <%@books.each do |book|%>
+                <span class = "well well-sm"><%= link_to(book.name,book_path(book),:class => "btn")%></span>
+            <%end%>
+        </div>
+    </div>
+</div>

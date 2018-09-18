@@ -1,12 +1,18 @@
 class AuthorsController < ApplicationController
   layout "mylayout"
   def index
-    @authors = Author.paginate(:page => params[:page], :per_page => 4)
-    @books = Book.all
+    if params[:search].blank?
+      @authors = Author.visible.paginate(:page => params[:page], :per_page => 4)
+    else
+      @authors = Author.visible.search(params[:search]).paginate(:page => params[:page], :per_page => 4)
+    end
   end
 
   def new
     @author = Author.new
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create
@@ -14,15 +20,25 @@ class AuthorsController < ApplicationController
     puts param_permit
     if @author.save
       flash[:notice] = "Author successfully created"
-      redirect_to(:action => "index")
+      begin
+        respond_to do |format|
+          format.js {render inline: "location.reload();" }
+        end
+      rescue => exception
+        redirect_to authors_path
+      end
+      
     else
       flash[:error] = "Error in creating an author"
-      render("new")
+      render(new_author_path)
     end
   end
 
   def edit
     @author = Author.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def update
@@ -31,10 +47,16 @@ class AuthorsController < ApplicationController
     if @author.update_attributes(param_permit)
       #@author.updated_at = Time.now
       flash[:notice] = "Author has been updated successfully"
-      redirect_to(:action => "index")
+      begin
+        respond_to do |format|
+          format.js {render inline: "location.reload();" }
+        end
+      rescue => exception
+        redirect_to authors_path
+      end
     else
       flash[:error] = "Error in updating author"
-      render("edit")
+      render(edit_author_path(@author))
     end
   end
 
@@ -58,8 +80,13 @@ class AuthorsController < ApplicationController
       format.js {render inline: "location.reload();" }
     end
   end
+
+  def trend
+    @authors = Author.all.select {|author| author.reviews.count >= 3}
+    @books = Book.all.select {|book| book.reviews.count >= 3}
+  end
 private
   def param_permit
-    params.require(:author).permit(:name,:cover,:biography,:academics_list,:awards_list)
+    params.require(:author).permit(:name,:active,:cover,:biography,:academics_list,:awards_list)
   end
 end

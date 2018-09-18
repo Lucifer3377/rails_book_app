@@ -9,6 +9,9 @@
   <body>
   <nav class="navbar">
     <div id = "banner">
+    <div class="navbar-header">
+      <%= link_to("Home",authors_trend_path,:class => "navbar-brand")%>
+    </div>
       <ul class="nav navbar-nav" id = "menu">
           <li class = "nav-item <%= active_class("authors")%>">
               <%= link_to("Author",{:controller => "authors", :action => "index"},:class => "nav-link")%>
@@ -18,11 +21,11 @@
           </li>
       </ul>
       <div class ="col-md-offset-1 col-md-3">
-        <%= form_tag(controller: "books",action: "index", method: :get,:class => "form-inline my-2 my-md-0") do%>
+        <%= form_for(:search,controller: controller.controller_name, action: "index", method: :get,:class => "form-inline my-2 my-md-0") do |f|%>
           <div class = "input-group">
-              <%= text_field_tag(:search,params[:search],placeholder: "Search...",:class => "form-control")%>
+              <%= f.text_field(params[:search],placeholder: "Search...",:class => "form-control")%>
               <span class = "input-group-btn">
-                  <%= button_tag(name: nil, data:{disable_with: "Searching...."}, :class => "btn btn-primary") do%>
+                  <%= f.button(name: nil, data:{disable_with: "Searching...."}, :class => "btn btn-primary") do%>
                       <i class="glyphicon glyphicon-search"></i>
                   <%end%>
               </span>

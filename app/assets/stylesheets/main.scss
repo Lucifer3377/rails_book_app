@@ -227,3 +227,27 @@ div#banner {
       background: yellow;
       color: black;
   }
+
+  .button {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+
+.button1 {border-radius: 2px;}
+.button2 {border-radius: 4px;}
+.button3 {border-radius: 8px;}
+.button4 {border-radius: 12px;}
+.button5 {border-radius: 60%;}
+
+.fixed-right{
+    right: -20px;
+    top: 50%;
+    position: absolute;
+}

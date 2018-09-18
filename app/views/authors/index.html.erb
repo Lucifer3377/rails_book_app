@@ -1,21 +1,24 @@
 <% @page_title = "Author"%>
 <div class = "container">
-    <div class = "justify-content-around">
-        <%= link_to({:action => "new"},:class => "action new btn btn-primary m-top-links") do%>
-        <span class="glyphicon glyphicon-plus"></span> New Author
-        <%end%>
 
-    </div>
-
-    <div id="author-modal" class="modal fade"></div>
+    <div id="author-modal" class="modal fade" data-backdrop="static" data-keyboard="false"></div>
 
     <div class = "row">
-        <div class="digg_pagination col-md-8 col-md-offset-4">
+        <div class="digg_pagination col-md-4 col-md-offset-4">
             <div class="page_info">
                 <%= page_entries_info @authors %>
             </div>
             <%= will_paginate @authors, :container => false %>
         </div>
+        <div class = "col-md-4">
+            <%= link_to(new_author_path,remote: true,:class => "action new btn btn-primary m-top-links") do%>
+                <span class="glyphicon glyphicon-plus"></span> New Author
+            <%end%>
+        </div>
+    </div>
+
+    <div class = "fixed-right">
+        <button class="button button5"><span class="glyphicon glyphicon-filter"></span></button>
     </div>
 
     <div class="row text-white well well-sm table-header" summary = "Author Listing">
@@ -27,11 +30,18 @@
         <%@authors.each do |author|%>
             <div class ="row list-group <%= cycle('odd','even')%>">
                 <div class = "col-md-4">
-                    <%= link_to(author.name,{:action => "show", :id => author.id},:class => "btn list-group-item text-capitalize")%>
+                    <%= link_to(author.name,author_path(author),:class => "btn list-group-item text-capitalize")%>
                 </div>
-                <div class = "col-md-4 text-center"><%= author.books.count%></div>
+                
+                <%if author.books.count > 0%>
+                   <div class = "col-md-4 text-center">
+                        <%= link_to(author.books.count,{controller: "books",action: "index",id: author.id},:class => "btn list-group-item wordwrap")%>  
+                    </div>
+                <%else%>
+                    <div class = "col-md-4 text-center"><%= author.books.count%></div>
+                <%end%>
                 <div class = "col-md-4 btn-group text-center">
-                    <%= link_to("Edit",{:action => "edit", :id => author.id},:class => "btn btn-primary text-center")%>
+                    <%= link_to("Edit",edit_author_path(author),remote: true,:class => "btn btn-primary text-center")%>
                     <%= link_to("Delete",delete_author_path(author), :remote => true, :class => "btn btn-danger text-center")%>
                 </div>
             </div>
