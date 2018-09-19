@@ -29,12 +29,21 @@ class Book
   has_many :reviews, as: :reviewable
 
   scope :instock, ->{where(out_of_stock: false)}
-
-  def self.search(search)
-    puts "\n\nInside Search\n\n"
-    if search
-      puts "\n\nSearching.....\n\n"
-      any_of({name: /#{search}/i},{s_desc: /#{search}/i},{genre: /#{search}/i})#,{Author.name: /#{search}/i})#,{author: %i[name] => /#{search}/i})
-    end
+  
+  def self.find_books(search)
+    books = Book.all
+    books = books.where(name: /#{search["name"]}/) if search["name"].present?
+    books = books.in(genre: /#{search["genre_type"]}/) if search["genre_type"].present?
+    books = books.where(:price.gte => search["min_price"]) if search["min_price"].present?
+    books = books.where(:price.lte => search["max_price"]) if search["max_price"].present?
+    books
   end
+  
+  # def self.search(search)
+  #   puts "\n\nInside Search\n\n"
+  #   if search
+  #     puts "\n\nSearching.....\n\n"
+  #     any_of({name: /#{search}/i},{s_desc: /#{search}/i},{genre: /#{search}/i})#,{Author.name: /#{search}/i})#,{author: %i[name] => /#{search}/i})
+  #   end
+  # end
 end

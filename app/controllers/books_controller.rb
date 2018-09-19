@@ -1,13 +1,23 @@
 class BooksController < ApplicationController
   layout "mylayout"
+
+  helper_method :sort_column, :sort_direction
+
+  def search
+    respond_to do |format|
+      format.js {render template: "books/search.js.erb"}
+    end
+  end
+
   def index
-    if !params[:search].blank?
-      @books = Book.instock.search(params[:search]).paginate(:page => params[:page], :per_page => 3)
-        #paginate(:page => 1, :limit => 10).desc(:_id)
-    elsif !params[:id].blank?
-      @books = Book.where(:author_id => params[:id]).paginate(:page => params[:page], :per_page => 3)
+    puts "\n\n\n************#{params[:search]}*****************\n\n\n"
+
+    if params[:author_id].present?
+      @books = Book.where(:author_id => params[:author_id]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 3)  
+    elsif !params[:search].blank?
+      @books = Book.find_books(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 3)
     else
-      @books = Book.instock.order_by(:name => :desc).paginate(:page => params[:page], :per_page => 3)
+      @books = Book.instock.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 3)
     end
   end
 
@@ -102,7 +112,15 @@ class BooksController < ApplicationController
 
 private
   def param_permit
-    params[:book][:genre] ||= []
+    #params[:book][:genre] ||= []
     params.require(:book).permit(:author_id,:out_of_stock,:cover,:name,:s_desc,:l_desc,:date_of_prod,:price,genre: [])
+  end
+
+  def sort_column
+    Book.fields.keys.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

@@ -2,7 +2,10 @@ Rails.application.routes.draw do
 
   #resources :people, except: [:show]
   get 'authors/trend', to: "authors#trend"
-  
+  get "books/search", to: "books#search"
+  get "authors/search", to: "authors#search"
+  #post "books/search_index", to: "books#search_index"
+
   resources :authors, :books do
     get "delete", on: :member
   end

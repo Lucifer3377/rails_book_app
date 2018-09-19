@@ -8,7 +8,7 @@
         con = "books"
     end%>
     <div class = "p-back">
-        <%= link_to({:controller => con, :action => "show", :id => @reviewable_id},:class => "btn btn-success") do%>
+        <%= link_to(:back,:class => "btn btn-success") do%>
             <span class="glyphicon glyphicon-arrow-left"></span> Back
         <%end%>
     </div>

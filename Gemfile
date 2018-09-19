@@ -24,6 +24,9 @@ gem "will_paginate_mongoid"
 gem 'jquery-rails'
 #gem 'turbolinks'
 
+#for easy search
+#gem "searchlogic"
+
 
 #gem 'mongoid_search'
 #gem 'mongoid-pagination'

@@ -13,17 +13,17 @@
       <%= link_to("Home",authors_trend_path,:class => "navbar-brand")%>
     </div>
       <ul class="nav navbar-nav" id = "menu">
-          <li class = "nav-item <%= active_class("authors")%>">
+          <li class = "nav-item">
               <%= link_to("Author",{:controller => "authors", :action => "index"},:class => "nav-link")%>
           </li>
-          <li class = "nav-item<%= active_class("books")%>">
+          <li class = "nav-item">
               <%= link_to("Book",{:controller => "books", :action => "index"},:class => "nav-link")%>
           </li>
       </ul>
       <div class ="col-md-offset-1 col-md-3">
         <%= form_for(:search,controller: controller.controller_name, action: "index", method: :get,:class => "form-inline my-2 my-md-0") do |f|%>
           <div class = "input-group">
-              <%= f.text_field(params[:search],placeholder: "Search...",:class => "form-control")%>
+              <%= f.text_field(:name,placeholder: "Search...",:class => "form-control")%>
               <span class = "input-group-btn">
                   <%= f.button(name: nil, data:{disable_with: "Searching...."}, :class => "btn btn-primary") do%>
                       <i class="glyphicon glyphicon-search"></i>

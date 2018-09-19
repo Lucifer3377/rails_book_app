@@ -44,7 +44,6 @@ body{
 }
 
 .center-div{
-    float: none;
     margin: 0 auto;
 }
 
@@ -247,7 +246,40 @@ div#banner {
 .button5 {border-radius: 60%;}
 
 .fixed-right{
-    right: -20px;
+    right: 0;
     top: 50%;
     position: absolute;
+}
+
+table,
+thead,
+tr,
+tbody,
+th,
+td {
+    text-align: center;
+}
+
+.thead-inverse th {
+    color: #fff;
+    background-color: #373a3c;
+}
+
+.pretty th a{
+    text-decoration: none;
+    color: white;
+}
+.pretty th .current {
+    padding-right: 46px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    text-decoration: none;
+}
+  
+.pretty th .asc {
+    background-image: url(up_arrow);
+}
+  
+.pretty th .desc {
+    background-image: url(down_arrow);
 }

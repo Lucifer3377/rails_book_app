@@ -37,11 +37,17 @@ class Author
   def awards_list
     self.awards.join(", ")
   end
-  def self.search(search)
-    puts "\n\nInside Search\n\n"
-    if search
-      puts "\n\nSearching.....\n\n"
-      any_of({name: /#{search}/i},{biography: /#{search}/i})
-    end
+
+  def self.find_authors(search)
+    authors = Author.all
+    authors = authors.where(name: /#{search["name"]}/) if search["name"].present?
+    authors
   end
+  # def self.search(search)
+  #   puts "\n\nInside Search\n\n"
+  #   if search
+  #     puts "\n\nSearching.....\n\n"
+  #     any_of({name: /#{search}/i},{biography: /#{search}/i})
+  #   end
+  # end
 end

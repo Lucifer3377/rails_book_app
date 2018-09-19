@@ -1,10 +1,19 @@
 class AuthorsController < ApplicationController
   layout "mylayout"
+
+  helper_method :sort_column, :sort_direction
+
+  def search
+    respond_to do |format|
+      format.js {render template: "authors/search.js.erb"}
+    end
+  end
+  
   def index
-    if params[:search].blank?
-      @authors = Author.visible.paginate(:page => params[:page], :per_page => 4)
+    if params[:search].present?
+      @authors = Author.find_authors(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 4)
     else
-      @authors = Author.visible.search(params[:search]).paginate(:page => params[:page], :per_page => 4)
+      @authors = Author.visible.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 4)
     end
   end
 
@@ -85,8 +94,17 @@ class AuthorsController < ApplicationController
     @authors = Author.all.select {|author| author.reviews.count >= 3}
     @books = Book.all.select {|book| book.reviews.count >= 3}
   end
+
 private
   def param_permit
     params.require(:author).permit(:name,:active,:cover,:biography,:academics_list,:awards_list)
+  end
+
+  def sort_column
+    Author.fields.keys.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

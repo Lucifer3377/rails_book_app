@@ -18,35 +18,39 @@
     </div>
 
     <div class = "fixed-right">
-        <button class="button button5"><span class="glyphicon glyphicon-filter"></span></button>
-    </div>
+            <%= link_to(authors_search_path,remote: true,:class => "button button5") do%>
+            <span class="glyphicon glyphicon-filter"></span>
+            <%end%>
+        </div>
 
-    <div class="row text-white well well-sm table-header" summary = "Author Listing">
-        <div class = "col-md-4 text-center">Name</div>
-        <div class = "col-md-4 text-center">Books</div>
-        <div class = "col-md-4 text-center">Action</div>
-    </div>
-    <div class = "well">
-        <%@authors.each do |author|%>
-            <div class ="row list-group <%= cycle('odd','even')%>">
-                <div class = "col-md-4">
-                    <%= link_to(author.name,author_path(author),:class => "btn list-group-item text-capitalize")%>
-                </div>
-                
-                <%if author.books.count > 0%>
-                   <div class = "col-md-4 text-center">
-                        <%= link_to(author.books.count,{controller: "books",action: "index",id: author.id},:class => "btn list-group-item wordwrap")%>  
-                    </div>
-                <%else%>
-                    <div class = "col-md-4 text-center"><%= author.books.count%></div>
+
+
+    <table class = "table">
+            <thead class = "thead-inverse pretty" summary = "Book Listing">
+                <tr class ="<%= cycle('odd','even')%>">
+                    <th><%= sortable "name"%></th>
+                    <th>Books</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%@authors.each do |author|%>
+                    <tr>
+                    <td><%= link_to(author.name,author_path(author),:class => "btn list-group-item text-capitalize")%></td>
+                    <td>
+                    <%if author.books.count > 0%>
+                        <%= link_to(author.books.count,{controller: "books",action: "index",author_id: author.id},:class => "btn list-group-item wordwrap")%></td>
+                    <%else%>
+                        <%= author.books.count%>
+                    <%end%>
+                    <td>
+                        <div class = "col-md-2 btn-group center-div">
+                            <%= link_to("Edit",edit_author_path(author),remote: true,:class => "btn btn-primary")%>
+                            <%= link_to("Delete",delete_author_path(author), :remote => true, :class => "btn btn-danger")%>
+                        </div>
+                    </td>
+                    </tr>
                 <%end%>
-                <div class = "col-md-4 btn-group text-center">
-                    <%= link_to("Edit",edit_author_path(author),remote: true,:class => "btn btn-primary text-center")%>
-                    <%= link_to("Delete",delete_author_path(author), :remote => true, :class => "btn btn-danger text-center")%>
-                </div>
-            </div>
-        <%end%>
-    <div>
-
-    
+            </tbody>
+    </table>    
 <div>
