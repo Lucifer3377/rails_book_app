@@ -1,52 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= @page_title || Admin%></title>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body>
-  <nav class="navbar">
-    <div id = "banner">
-    <div class="navbar-header">
-      <%= link_to("Home",authors_trend_path,:class => "navbar-brand")%>
-    </div>
-      <ul class="nav navbar-nav" id = "menu">
-          <li class = "nav-item">
-              <%= link_to("Author",{:controller => "authors", :action => "index"},:class => "nav-link")%>
-          </li>
-          <li class = "nav-item">
-              <%= link_to("Book",{:controller => "books", :action => "index"},:class => "nav-link")%>
-          </li>
-      </ul>
-      <div class ="col-md-offset-1 col-md-3">
-        <%= form_for(:search,controller: controller.controller_name, action: "index", method: :get,:class => "form-inline my-2 my-md-0") do |f|%>
-          <div class = "input-group">
-              <%= f.text_field(:name,placeholder: "Search...",:class => "form-control")%>
-              <span class = "input-group-btn">
-                  <%= f.button(name: nil, data:{disable_with: "Searching...."}, :class => "btn btn-primary") do%>
-                      <i class="glyphicon glyphicon-search"></i>
-                  <%end%>
-              </span>
-          </div>
-        <%end%>
-      </div>
-    </div>
-  </nav>
-  <div>
-    <%= yield %>
-    <%if !flash[:notice].blank?%>
-      <div class = "alert alert-info"><%= flash[:notice]%></div>
-    <%end%>
-    <%if !flash[:error].blank?%>
-      <div class = "alert alert-info"><%= flash[:error]%></div>
-    <%end%>
-  </div>
-  <!--
-  <%= javascript_tag do %>
-    window.flashMessages = $.parseJSON('<%=j flash.to_hash.to_json.html_safe %>');
-  <%end %>
-  -->
-  </body>
+<head>
+  <title>RailsBookApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
 </html>

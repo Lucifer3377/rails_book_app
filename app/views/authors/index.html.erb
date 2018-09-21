@@ -10,11 +10,13 @@
             </div>
             <%= will_paginate @authors, :container => false %>
         </div>
-        <div class = "col-md-4">
-            <%= link_to(new_author_path,remote: true,:class => "action new btn btn-primary m-top-links") do%>
-                <span class="glyphicon glyphicon-plus"></span> New Author
-            <%end%>
-        </div>
+        <%if can? :create, Author%>
+            <div class = "col-md-4">
+                <%= link_to(new_author_path,remote: true,:class => "action new btn btn-primary m-top-links") do%>
+                    <span class="glyphicon glyphicon-plus"></span> New Author
+                <%end%>
+            </div>
+        <%end%>
     </div>
 
     <div class = "fixed-right">
@@ -30,25 +32,29 @@
                 <tr class ="<%= cycle('odd','even')%>">
                     <th><%= sortable "name"%></th>
                     <th>Books</th>
-                    <th>Action</th>
+                    <%if can? :update, Author%>
+                        <th>Action</th>
+                    <%end%>
                 </tr>
             </thead>
             <tbody>
                 <%@authors.each do |author|%>
                     <tr>
-                    <td><%= link_to(author.name,author_path(author),:class => "btn list-group-item text-capitalize")%></td>
+                    <td><%= link_to(author.name,author_path(author),:class => "btn list-group-item text-capitalize") if can? :read, author%></td>
                     <td>
                     <%if author.books.count > 0%>
-                        <%= link_to(author.books.count,{controller: "books",action: "index",author_id: author.id},:class => "btn list-group-item wordwrap")%></td>
+                        <%= link_to(author.books.count,{controller: "books",action: "index",author_id: author.id},:class => "btn list-group-item wordwrap")if can? :read, Book%></td>
                     <%else%>
                         <%= author.books.count%>
                     <%end%>
-                    <td>
-                        <div class = "col-md-2 btn-group center-div">
-                            <%= link_to("Edit",edit_author_path(author),remote: true,:class => "btn btn-primary")%>
-                            <%= link_to("Delete",delete_author_path(author), :remote => true, :class => "btn btn-danger")%>
-                        </div>
-                    </td>
+                    <%if can? :update, author%>
+                        <td>
+                            <div class = "col-md-2 btn-group center-div">
+                                <%= link_to("Edit",edit_author_path(author),remote: true,:class => "btn btn-primary")%>
+                                <%= link_to("Delete",delete_author_path(author), :remote => true, :class => "btn btn-danger")%>
+                            </div>
+                        </td>
+                    <%end%>
                     </tr>
                 <%end%>
             </tbody>

@@ -1,14 +1,65 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>RailsBookApp</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title><%= @page_title || Admin%></title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+  <nav class="navbar">
+    <div id = "banner">
+    <div class="navbar-header">
+      <%= link_to("Home",authors_trend_path,:class => "navbar-brand")%>
+    </div>
+      <ul class="nav navbar-nav" id = "menu">
+          <li class = "nav-item">
+              <%= link_to("Author",authors_path,:class => "nav-link")%>
+          </li>
+          <li class = "nav-item">
+              <%= link_to("Book",books_path,:class => "nav-link")%>
+          </li>
+      </ul>
 
-<%= yield %>
+      <div class ="col-md-offset-1 col-md-3">
+        <%= form_for(:search,controller: controller.controller_name, action: "index", method: :get,:class => "form-inline my-2 my-md-0") do |f|%>
+          <div class = "input-group">
+              <%= f.text_field(:name,placeholder: "Search...",:class => "form-control")%>
+              <span class = "input-group-btn">
+                  <%= f.button(name: nil, data:{disable_with: "Searching...."}, :class => "btn btn-primary") do%>
+                      <i class="glyphicon glyphicon-search"></i>
+                  <%end%>
+              </span>
+          </div>
+        <%end%>
+      </div>
 
-</body>
+      <div class="col-md-offset-2 text-white">
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>
+          <%= link_to 'Edit profile', edit_user_registration_path, :class => 'btn btn-default ' %> 
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-danger '  %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary'  %> 
+          <%= link_to "Login", new_user_session_path, :class => 'btn btn-success'  %>
+        <% end %>
+      </div>
+      
+    </div>
+  </nav>
+  <div>
+    <%= yield %>
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+  </div>
+  <!--
+  <%= javascript_tag do %>
+    window.flashMessages = $.parseJSON('<%=j flash.to_hash.to_json.html_safe %>');
+  <%end %>
+  -->
+  </body>
 </html>

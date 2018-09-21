@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-
+  devise_for :users, controllers: {
+    registrations: "users/registrations"
+  }
   #resources :people, except: [:show]
   get 'authors/trend', to: "authors#trend"
   get "books/search", to: "books#search"

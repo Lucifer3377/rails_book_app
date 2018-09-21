@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
-  layout "mylayout"
+  layout "application"
+  before_action :authenticate_user!
   def new
     @review = Review.new
     @reviewable_type = params[:type]

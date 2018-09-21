@@ -8,3 +8,4 @@ GENRE_TYPES =["Science fiction",
                 "Romance",
                 "Mystery",
                 "Horror"]
+ROLES = ["Customer","Admin"]

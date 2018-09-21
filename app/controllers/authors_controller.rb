@@ -1,6 +1,6 @@
 class AuthorsController < ApplicationController
-  layout "mylayout"
-
+  layout "application"
+  before_action :authenticate_user!
   helper_method :sort_column, :sort_direction
 
   def search

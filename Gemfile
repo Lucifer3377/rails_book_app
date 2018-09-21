@@ -19,6 +19,11 @@ gem 'sass-rails', '>= 3.2'
 #for pagination
 gem "will_paginate_mongoid"
 
+#for authentication
+gem 'devise'
+
+#for authorisation
+gem 'cancancan'
 #needed in modal
 #gem 'popper_js'
 gem 'jquery-rails'

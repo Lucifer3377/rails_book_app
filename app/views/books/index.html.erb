@@ -8,11 +8,13 @@
                 </div>
                 <%= will_paginate @books, :container => false %>
             </div>
-            <div class = "col-md-4">
-                <%= link_to(new_book_path,remote: true,:class => "action new btn btn-primary m-top-links") do%>
-                    <span class="glyphicon glyphicon-plus"></span> New Book
-                <%end%>     
-            </div>
+            <%if can? :create, Book%>
+                <div class = "col-md-4">
+                    <%= link_to(new_book_path,remote: true,:class => "action new btn btn-primary m-top-links") do%>
+                        <span class="glyphicon glyphicon-plus"></span> New Book
+                    <%end%>     
+                </div>
+            <%end%>
         </div>
         <div class = "fixed-right">
             <%= link_to(books_search_path,remote: true,:class => "button button5") do%>
@@ -28,14 +30,16 @@
                     <th>Date of Production</th>
                     <th>Genre</th>
                     <th><%= sortable "price"%></th>
-                    <th>Action</th>
+                    <%if can? :update, Book%>
+                        <th>Action</th>
+                    <%end%>
                 </tr>
             </thead>
             <tbody>
                 <%@books.each do |book|%>
                     <tr>
-                        <td><%= link_to(book.name,book_path(book),:class => "btn list-group-item wordwrap text-capitalize")%></td>
-                        <td><%= link_to(book.author.name,{controller: "authors",action: "show",id: book.author_id},:class => "btn list-group-item wordwrap text-capitalize")%></td>
+                        <td><%= link_to(book.name,book_path(book),:class => "btn list-group-item wordwrap text-capitalize")if can? :read, book%></td>
+                        <td><%= link_to(book.author.name,{controller: "authors",action: "show",id: book.author_id},:class => "btn list-group-item wordwrap text-capitalize")if can? :read, Author%></td>
                         <td><%= book.date_of_prod%></td>
                         <td>
                         <ul>
@@ -47,12 +51,14 @@
                         </ul>
                         </td>
                         <td class = "price"><%= book.price%></td>
-                        <td>
-                            <div class = "col-md-2 btn-group center-div">                    
-                                <%= link_to("Edit",edit_book_path(book),remote: true, :class => "btn btn-primary")%>
-                                <%= link_to("Delete",delete_book_path(book),remote: true,:class => "btn btn-danger")%>
-                            </div>
-                        </td>    
+                        <%if can? :update, book%>
+                            <td>
+                                <div class = "col-md-2 btn-group center-div">                    
+                                    <%= link_to("Edit",edit_book_path(book),remote: true, :class => "btn btn-primary")%>
+                                    <%= link_to("Delete",delete_book_path(book),remote: true,:class => "btn btn-danger")%>
+                                </div>
+                            </td>  
+                        <%end%>  
                     </tr>
                 <%end%>
             </tbody>
