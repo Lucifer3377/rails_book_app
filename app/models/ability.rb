@@ -6,10 +6,30 @@ class Ability
     #
       user ||= User.new # guest user (not logged in)
       if user.admin?
-        can :manage, :all
+        can :manage, :all        
       elsif user.customer?
         can :read, :all
+        can :manage, :all
+        cannot [:create,:delete,:update],[Author,Book]
       end
+      
+
+
+      # if user.present?
+      #   can :read, :all
+      #   can [:destroy,:update,:read,:create], [Author,Book,Review]
+      #   if user.admin?
+      #     can :manage, :all        
+      #   end
+      # end
+
+      # if user.admin?
+      #   can :manage, :all        
+      # elsif user.customer?
+      #   can :read, :all
+      #   can :create, Review        
+      # end
+      
       # if user.persistent?
       #   can :manage, :all
       # else

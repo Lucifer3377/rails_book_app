@@ -2,6 +2,7 @@ class BooksController < ApplicationController
   layout "application"
   before_action :authenticate_user!
   helper_method :sort_column, :sort_direction
+  load_and_authorize_resource :book
 
   def search
     respond_to do |format|
@@ -13,11 +14,11 @@ class BooksController < ApplicationController
     puts "\n\n\n************#{params[:search]}*****************\n\n\n"
 
     if params[:author_id].present?
-      @books = Book.where(:author_id => params[:author_id]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 3)  
+      @books = Book.where(:author_id => params[:author_id]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 20)  
     elsif !params[:search].blank?
-      @books = Book.find_books(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 3)
+      @books = Book.find_books(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 20)
     else
-      @books = Book.instock.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 3)
+      @books = Book.instock.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 20)
     end
   end
 
@@ -103,6 +104,7 @@ class BooksController < ApplicationController
   end
 
   def destroy
+    
     @book = Book.find(params[:id]).destroy
     flash[:notice] = "Book removed successfully"
     respond_to do |format|

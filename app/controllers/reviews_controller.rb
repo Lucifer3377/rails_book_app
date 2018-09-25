@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
   layout "application"
   before_action :authenticate_user!
+  load_and_authorize_resource :review
   def new
     @review = Review.new
     @reviewable_type = params[:type]

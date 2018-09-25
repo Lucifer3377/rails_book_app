@@ -1,8 +1,9 @@
 class AuthorsController < ApplicationController
   layout "application"
   before_action :authenticate_user!
+  # before_action :param_permit, only: [:create, :update]
   helper_method :sort_column, :sort_direction
-
+  load_and_authorize_resource :author, :book, :review
   def search
     respond_to do |format|
       format.js {render template: "authors/search.js.erb"}
@@ -11,9 +12,9 @@ class AuthorsController < ApplicationController
   
   def index
     if params[:search].present?
-      @authors = Author.find_authors(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 4)
+      @authors = Author.find_authors(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 10)
     else
-      @authors = Author.visible.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 4)
+      @authors = Author.visible.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 10)
     end
   end
 

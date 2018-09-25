@@ -7,11 +7,13 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-  <nav class="navbar">
+  <nav class="navbar navbar-fixed-top">
     <div id = "banner">
-    <div class="navbar-header">
-      <%= link_to("Home",authors_trend_path,:class => "navbar-brand")%>
-    </div>
+    <%if can? :read, Author%>
+      <div class="navbar-header">
+        <%= link_to("Home",authors_trend_path,:class => "navbar-brand")%>
+      </div>
+    <%end%>
       <ul class="nav navbar-nav" id = "menu">
           <li class = "nav-item">
               <%= link_to("Author",authors_path,:class => "nav-link")%>
@@ -21,7 +23,7 @@
           </li>
       </ul>
 
-      <div class ="col-md-offset-1 col-md-3">
+      <div class ="col-md-offset-2 col-md-3">
         <%= form_for(:search,controller: controller.controller_name, action: "index", method: :get,:class => "form-inline my-2 my-md-0") do |f|%>
           <div class = "input-group">
               <%= f.text_field(:name,placeholder: "Search...",:class => "form-control")%>
@@ -34,7 +36,7 @@
         <%end%>
       </div>
 
-      <div class="col-md-offset-2 text-white">
+      <div class="text-white">
         <% if user_signed_in? %>
           Logged in as <strong><%= current_user.email %></strong>
           <%= link_to 'Edit profile', edit_user_registration_path, :class => 'btn btn-default ' %> 
@@ -47,13 +49,14 @@
       
     </div>
   </nav>
+  <br><br><br><br>
   <div>
     <%= yield %>
     <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
+      <p class="alert alert-success text-center"><%= notice %></p>
     <% end %>
     <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
+      <p class="alert alert-danger text-center"><%= alert %></p>
     <% end %>
   </div>
   <!--

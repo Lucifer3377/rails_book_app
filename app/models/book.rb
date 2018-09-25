@@ -21,12 +21,13 @@ class Book
 
   mount_uploader :cover, CoverUploader
 
-  validates_presence_of :name,:s_desc,:price, :genre, :l_desc, :author_id
+  validates_presence_of :name,:s_desc,:price, :genre, :l_desc, :author_id, :out_of_stock
   validates_numericality_of :price, greater_than: 0, :only_integer => true, :message => "should be an integer greater than zero"
   
 
   belongs_to :author
   has_many :reviews, as: :reviewable
+  belongs_to :user
 
   scope :instock, ->{where(out_of_stock: false)}
   

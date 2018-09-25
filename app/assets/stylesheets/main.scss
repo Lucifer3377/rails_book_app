@@ -4,7 +4,7 @@ html {
 }
 
 body{
-    background-image: url("rails_book_app/app/assets/images/header");
+    // background-image: url("rails_book_app/app/assets/images/header");
     font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 .text-white{
@@ -180,8 +180,6 @@ body{
 div#banner {
     background-color: black;
     height: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
     display:flex;
     align-items:center;
   }
@@ -253,7 +251,7 @@ div#banner {
 .fixed-right{
     right: 0;
     top: 50%;
-    position: absolute;
+    position: fixed;
 }
 
 table,
@@ -287,4 +285,13 @@ td {
   
 .pretty th .desc {
     background-image: url(down_arrow);
+}
+
+.modal-header{
+    border-bottom: none;
+}
+
+.close:hover {
+    color: rgb(255, 0, 0); 
+    opacity: 3;
 }

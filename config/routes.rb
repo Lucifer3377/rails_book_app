@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: "users/registrations"
   }
+  #default_url_options :host => "localhost"
   #resources :people, except: [:show]
   get 'authors/trend', to: "authors#trend"
   get "books/search", to: "books#search"

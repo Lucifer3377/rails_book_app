@@ -1,9 +1,17 @@
 class User
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
+
+  validates :phone, length: { minimum: 10, maximum: 10 }
+  validates_presence_of :first_name, :last_name, :phone, :role
+
+  has_many :authors
+  has_many :books
+
 
   ## Registerable
   field :first_name,         type: String, default: ""

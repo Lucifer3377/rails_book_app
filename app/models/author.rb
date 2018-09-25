@@ -3,6 +3,7 @@
 class Author
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
 
   field :name, type: String
   field :biography, type: String
@@ -18,6 +19,7 @@ class Author
 
   has_many :books, :dependent => :destroy
   has_many :reviews, as: :reviewable, :dependent => :delete
+  belongs_to :user
 
   scope :search, lambda {|q| where(:id => q)}
   scope :visible, ->{ where(active: true) }

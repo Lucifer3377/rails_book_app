@@ -8,7 +8,7 @@
             <div class="page_info">
                 <%= page_entries_info @authors %>
             </div>
-            <%= will_paginate @authors, :container => false %>
+            <%= will_paginate @authors, :container => false, :inner_window => 1 %>
         </div>
         <%if can? :create, Author%>
             <div class = "col-md-4">
@@ -32,7 +32,7 @@
                 <tr class ="<%= cycle('odd','even')%>">
                     <th><%= sortable "name"%></th>
                     <th>Books</th>
-                    <%if can? :update, Author%>
+                    <%if can?(:update, Author)%>
                         <th>Action</th>
                     <%end%>
                 </tr>

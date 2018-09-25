@@ -9,3 +9,5 @@ GENRE_TYPES =["Science fiction",
                 "Mystery",
                 "Horror"]
 ROLES = ["Customer","Admin"]
+
+REVIEW_TYPE = ["Author","Book"]

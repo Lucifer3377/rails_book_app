@@ -6,7 +6,7 @@
                 <div class="page_info">
                     <%= page_entries_info @books %>
                 </div>
-                <%= will_paginate @books, :container => false %>
+                <%= will_paginate @books, :container => false, :inner_window => 1%>
             </div>
             <%if can? :create, Book%>
                 <div class = "col-md-4">

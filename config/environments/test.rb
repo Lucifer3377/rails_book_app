@@ -7,6 +7,9 @@ Rails.application.configure do
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
 
+  #Factory bot path
+  #config.factory_bot.definition_file_paths = ["custom/factories"]
+
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
@@ -19,6 +22,23 @@ Rails.application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
+
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'example.com',
+    user_name:            'naruchan3377@gmail.com',
+    password:             'uchihamadara',
+    authentication:       'plain',
+    enable_starttls_auto: true }
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000}
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
