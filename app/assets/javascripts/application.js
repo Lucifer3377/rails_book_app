@@ -13,10 +13,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require select2-full
+
+//= require spin
+//= require jquery.spin
 //= require_self
 //= require_tree .
 
 /*
+
 var ready;
 ready = function() {
   $.each( flashMessages, function(key, value){

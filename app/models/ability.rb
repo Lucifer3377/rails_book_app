@@ -9,8 +9,9 @@ class Ability
         can :manage, :all        
       elsif user.customer?
         can :read, :all
-        can :manage, :all
-        cannot [:create,:delete,:update],[Author,Book]
+        can :trend, :all
+        can :create, Review
+        can :search, :all
       end
       
 

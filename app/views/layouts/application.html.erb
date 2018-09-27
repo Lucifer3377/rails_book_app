@@ -9,11 +9,9 @@
   <body>
   <nav class="navbar navbar-fixed-top">
     <div id = "banner">
-    <%if can? :read, Author%>
       <div class="navbar-header">
         <%= link_to("Home",authors_trend_path,:class => "navbar-brand")%>
       </div>
-    <%end%>
       <ul class="nav navbar-nav" id = "menu">
           <li class = "nav-item">
               <%= link_to("Author",authors_path,:class => "nav-link")%>
@@ -23,7 +21,7 @@
           </li>
       </ul>
 
-      <div class ="col-md-offset-2 col-md-3">
+      <div class ="col-md-offset-1 col-md-3">
         <%= form_for(:search,controller: controller.controller_name, action: "index", method: :get,:class => "form-inline my-2 my-md-0") do |f|%>
           <div class = "input-group">
               <%= f.text_field(:name,placeholder: "Search...",:class => "form-control")%>
@@ -36,7 +34,7 @@
         <%end%>
       </div>
 
-      <div class="text-white">
+      <div class="text-white ml-auto">
         <% if user_signed_in? %>
           Logged in as <strong><%= current_user.email %></strong>
           <%= link_to 'Edit profile', edit_user_registration_path, :class => 'btn btn-default ' %> 
@@ -49,8 +47,13 @@
       
     </div>
   </nav>
+  
+  <!--
+  <div id="loading-modal" class="modal fade" data-backdrop="static" data-keyboard="false"></div>
+  -->
   <br><br><br><br>
-  <div>
+ 
+  <div id = "allContents" style = "display:none;">
     <%= yield %>
     <% if notice %>
       <p class="alert alert-success text-center"><%= notice %></p>
@@ -59,10 +62,46 @@
       <p class="alert alert-danger text-center"><%= alert %></p>
     <% end %>
   </div>
+   <div class="modal-spinner" style = "display:none;" data-backdrop="static" data-keyboard="false"/>
   <!--
   <%= javascript_tag do %>
     window.flashMessages = $.parseJSON('<%=j flash.to_hash.to_json.html_safe %>');
   <%end %>
   -->
+  <script>
+      /*
+      $(document).on('readystatechange', function () {
+      let state = document.readyState
+      if (state == 'interactive') {
+        $(".modal-spinner").spin({
+          lines: 12, // The number of lines to draw
+          length: 7, // The length of each line
+          width: 9, // The line thickness
+          radius: 30, // The radius of the inner circle
+          color: '#FFF', // #rgb or #rrggbb
+          speed: 1, // Rounds per second
+          trail: 60, // Afterglow percentage
+          shadow: false // Whether to render a shadow
+        });
+      } else if (state == 'complete') {
+          setTimeout(function(){
+            $(".modal-spinner").spin(false);
+            $('#allContents').show(); 
+          },800);
+      }
+    });
+    */
+    $(document).on('readystatechange', function () {
+      let state = document.readyState
+      if (state == 'interactive') {
+        $(".modal-spinner").fadeIn('slow');
+      } else if (state == 'complete') {
+          setTimeout(function(){
+            $(".modal-spinner").fadeOut('slow');
+            $('#allContents').show(); 
+          },800);
+      }
+    });
+  </script>
   </body>
 </html>

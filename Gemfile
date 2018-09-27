@@ -32,6 +32,16 @@ gem 'jquery-rails'
 #for easy search
 #gem "searchlogic"
 
+#for select box
+gem "select2-rails"
+
+#for speeding up links
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+
+#for spinner
+gem 'spinjs-rails'
+
 
 #gem 'mongoid_search'
 #gem 'mongoid-pagination'

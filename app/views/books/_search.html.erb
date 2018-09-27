@@ -12,8 +12,18 @@
                 </div>
                 <div class="field">
                     <%= label :search,:genre_type %><br />
-                    <%= select(:search,:genre_type,GENRE_TYPES.collect {|x| x},{:include_blank => true},:class => "form-control")%>
+                    <%= select(:search,:genre_type,GENRE_TYPES.collect {|x| x},{:include_blank => true},id: "simple-example",:class => "form-control smalldrop")%>
                 </div>
+                <script>
+                    $(document).ready(function() {
+                        $('select#simple-example').select2({
+                            placeholder: "Choose an Genre",
+                            allowClear: true,
+                            dropdownCssClass : 'smalldrop',
+                            theme: "bootstrap"
+                        });
+                    });
+                </script>
                 <div class="field">
                     <%= label :search,:min_price, "Price Range" %><br />
                     <%= text_field :search,:min_price, size: 10 %> -

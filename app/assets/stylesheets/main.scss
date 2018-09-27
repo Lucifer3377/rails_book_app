@@ -4,7 +4,7 @@ html {
 }
 
 body{
-    // background-image: url("rails_book_app/app/assets/images/header");
+    // background-image: url(/assets/header.jpg);
     font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 .text-white{
@@ -294,4 +294,41 @@ td {
 .close:hover {
     color: rgb(255, 0, 0); 
     opacity: 3;
+}
+
+.ml-auto, .mx-auto {
+    margin-left: auto!important;
+    margin-right: 10px;
+}
+
+.bigdrop {
+    width: 610px !important;
+}
+
+.smalldrop{
+    width: 300px !important;
+}
+
+#spinner{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+}
+
+.show-nothing {
+    display: none;
+}
+
+.modal-spinner {
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba(255, 255, 255, 0.8)
+                url(image-path('spinner.gif'))
+                50% 50%
+                no-repeat;
 }
