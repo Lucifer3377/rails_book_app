@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :authors, :books do
     get "delete", on: :member
+    collection { post :import }
   end
   
   root to: "authors#trend"

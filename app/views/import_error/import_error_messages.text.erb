@@ -1,0 +1,7 @@
+
+    hi, <%= "#{@user.first_name} #{@user.last_name}" %>
+      Below are the errors that were found while processing your document.
+    <%@errors.each do |e|%>
+      <%= e%>
+    <%end%>
+    Thanks for joining and have a great day!

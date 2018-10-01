@@ -19,29 +19,42 @@ gem 'sass-rails', '>= 3.2'
 #for pagination
 gem "will_paginate_mongoid"
 
-#for authentication
+#For authentication
 gem 'devise'
 
-#for authorisation
+#For authorisation
 gem 'cancancan'
-#needed in modal
+#Needed in modal
 #gem 'popper_js'
 gem 'jquery-rails'
 #gem 'turbolinks'
 
-#for easy search
+#For easy search
 #gem "searchlogic"
 
-#for select box
+#For select box
 gem "select2-rails"
 
 #for speeding up links
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-#for spinner
+#For spinner
 gem 'spinjs-rails'
 
+#For background processing
+gem 'sidekiq'
+
+#For importing Spreadsheet
+#gem 'csv'
+gem 'roo'
+gem "roo-xls"
+#gem "spreadsheet", "0.9.0"
+
+gem "better_errors"
+gem "binding_of_caller"
+
+gem 'rubocop', '~> 0.59.2', require: false
 
 #gem 'mongoid_search'
 #gem 'mongoid-pagination'

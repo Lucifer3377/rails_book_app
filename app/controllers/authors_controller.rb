@@ -96,9 +96,31 @@ class AuthorsController < ApplicationController
     @books = Book.all.select {|book| book.reviews.count >= 3}
   end
 
+  def import
+    begin  
+      checkExt?(params[:file].original_filename)
+      puts "********************************#{params[:file]}**************************"
+      SheetWorker.perform_async(params[:file].original_filename, params[:file].path,current_user.id)
+    rescue
+      redirect_to root_url, alert: "File Not Supported."
+      return
+    end
+    redirect_to root_url, notice: 'Products imported.'      
+  end
+
+  def checkExt?(filename)    
+      case File.extname(filename)
+        when ".csv" then true
+        when ".xls" then true
+        when ".xlsx" then true
+        # when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
+        else raise RuntimeError,"Unknown file type"
+      end
+  end
+
 private
   def param_permit
-    params.require(:author).permit(:name,:active,:cover,:biography,:academics_list,:awards_list)
+    params.require(:author).permit(:name,:active,:cover,:biography,:academics_list,:awards_list,:file)
   end
 
   def sort_column

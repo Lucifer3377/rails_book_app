@@ -9,9 +9,6 @@ class User
   validates :phone, length: { minimum: 10, maximum: 10 }
   validates_presence_of :first_name, :last_name, :phone, :role
 
-  has_many :authors
-  has_many :books
-
 
   ## Registerable
   field :first_name,         type: String, default: ""
@@ -47,11 +44,7 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
 
-  def admin?
-    role == "Admin"
-  end
-
-  def customer?
-    role == "Customer"
+  def userRole?(user_role)
+    user_role == role
   end
 end

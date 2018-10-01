@@ -27,16 +27,14 @@ class Book
 
   belongs_to :author
   has_many :reviews, as: :reviewable
-  belongs_to :user
 
   scope :instock, ->{where(out_of_stock: false)}
   
   def self.find_books(search)
     books = Book.all
-    books = books.where(name: /#{search["name"]}/) if search["name"].present?
+    books = books.where(name: /#{search["name"]}/i) if search["name"].present?
     books = books.in(genre: /#{search["genre_type"]}/) if search["genre_type"].present?
-    books = books.where(:price.gte => search["min_price"]) if search["min_price"].present?
-    books = books.where(:price.lte => search["max_price"]) if search["max_price"].present?
+    books = books.where(price: {"$gte" => search["min_price"],"$lte" => search["max_price"]}) if search["min_price"].present? || search["max_price"].present?
     books
   end
   
