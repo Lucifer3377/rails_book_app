@@ -70,7 +70,7 @@ class Author
         end
         puts "*************************\n\n\nChecking array\n\n\n#{@@errors_caught}*********************************************"      
         
-        puts "*************************\n\n\User object\n\n\n#{user.inspect} and id #{user_id}*********************************************"   
+          
     end
     rescue RuntimeError => exception
       print_exception(exception)            
@@ -78,6 +78,7 @@ class Author
      
     if @@errors_caught.present?
       user = User.find_by(id: user_id)
+      puts "*************************\n\n\User object\n\n\n#{user.inspect} and id #{user_id}*********************************************" 
       ImportError.import_error_messages(user,@@errors_caught).deliver_now
       @@errors_caught = []
     end
