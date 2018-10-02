@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 gem 'mongoid'
 gem 'bson_ext'
-gem 'mongoid_auto_increment_id', "0.7.0"
+gem 'mongoid_auto_increment_id', "0.7.0"            #To avoid using ObjectID by default
 gem "rmagick"
 gem 'carrierwave', '~> 0.11.2'
 gem "carrierwave-mongoid", :require => 'carrierwave'
@@ -45,15 +45,19 @@ gem 'spinjs-rails'
 #For background processing
 gem 'sidekiq'
 
+#To check Sidekiq worker status
+gem 'sidekiq-status'
+
 #For importing Spreadsheet
 #gem 'csv'
-gem 'roo'
+gem 'roo'                   #Provides compatibility with csv,xls,xl
 gem "roo-xls"
 #gem "spreadsheet", "0.9.0"
 
-gem "better_errors"
+gem "better_errors"         #for good UI exception desription presentation
 gem "binding_of_caller"
 
+#For Code Optimization
 gem 'rubocop', '~> 0.59.2', require: false
 
 #gem 'mongoid_search'

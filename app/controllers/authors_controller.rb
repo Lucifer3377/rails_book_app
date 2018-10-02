@@ -99,10 +99,12 @@ class AuthorsController < ApplicationController
   def import
     begin  
       checkExt?(params[:file].original_filename)
-      puts "********************************#{params[:file]}**************************"
-      SheetWorker.perform_async(params[:file].original_filename, params[:file].path,current_user.id)
+      puts "********************************The file name and then worker returns#{params[:file]}**************************"
+      worker_job_id = SheetWorker.perform_async(params[:file].original_filename, params[:file].path,current_user.id)
+      puts worker_job_id
     rescue
       redirect_to root_url, alert: "File Not Supported."
+      # render html: "<script>alert('File Not Supported!')</script>".html_safe
       return
     end
     redirect_to root_url, notice: 'Products imported.'      
@@ -113,7 +115,6 @@ class AuthorsController < ApplicationController
         when ".csv" then true
         when ".xls" then true
         when ".xlsx" then true
-        # when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
         else raise RuntimeError,"Unknown file type"
       end
   end

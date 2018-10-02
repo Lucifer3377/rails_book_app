@@ -25,8 +25,6 @@ class Author
   scope :search, lambda {|q| where(:id => q)}
   scope :visible, ->{ where(active: true) }
 
-  @@errors_caught = []
-
   def academics_list=(arg)
     self.academics = arg.split(",").map {|v| v.strip}
   end
@@ -55,6 +53,7 @@ class Author
   end  
 
   def self.import(file_name,path,user_id)
+    errors_caught = []
     begin
       spreadsheet = open_spreadsheet(file_name,path)
     header = spreadsheet.row(1)
@@ -66,9 +65,9 @@ class Author
         puts "**********************#{row.to_hash.slice(*row.to_hash.keys)}****************************"
         author.attributes = row.to_hash.slice(*row.to_hash.keys)
         if(!author.save)
-          @@errors_caught << author.errors.messages
+          errors_caught << author.errors.messages
         end
-        puts "*************************\n\n\nChecking array\n\n\n#{@@errors_caught}*********************************************"      
+        puts "*************************\n\n\nChecking array\n\n\n#{errors_caught}*********************************************"      
         
           
     end
@@ -76,11 +75,11 @@ class Author
       print_exception(exception)            
     end  
      
-    if @@errors_caught.present?
+    if errors_caught.present?
       user = User.find_by(id: user_id)
       puts "*************************\n\n\User object\n\n\n#{user.inspect} and id #{user_id}*********************************************" 
-      ImportError.import_error_messages(user,@@errors_caught).deliver_now
-      @@errors_caught = []
+      ImportError.import_error_messages(user,errors_caught).deliver_now
+      errors_caught = []
     end
   end
   
