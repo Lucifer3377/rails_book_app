@@ -17,15 +17,31 @@
             <div class = "col-md-3">
                 <%= form_tag(import_authors_path, method: :post,:multipart => true,:class => "form-inline") do%>
                     <div class = "input-group">
-                        <%= file_field_tag :file,:class => "form-control" %>
-                        <span class = "input-group-btn">
-                        <%= button_tag(name: nil, data:{disable_with: "Importing...."}, :class => "btn btn-primary") do%>
+                        <%= file_field_tag :file,:class => "form-control",data: {toggle: "popover",trigger: "hover",content: "Only true csv,xls,xlsx files could be Imported"} %>
+                        <span class = "input-group-btn disabled">
+                        <%= button_tag(name: nil,id: "submit_file",disabled: true, data:{disable_with: "Importing...."}, :class => "btn btn-primary") do%>
                             <i class="glyphicon glyphicon-import"></i>
                         <%end%>
                         </span>
                     </div>
                 <% end %>
             </div>
+            <script>
+                $(document).ready(
+                function(){                    
+                    $('#file').change(
+                        function(){
+                            if ($(this).val()) {
+                                //$('input:submit').attr('disabled',false);
+                                // or, as has been pointed out elsewhere:
+                                $('#submit_file').removeAttr('disabled');
+                            } 
+                        }
+                    );
+
+                    $('[data-toggle="popover"]').popover();
+                });
+            </script>
         <%end%>
     </div>
     <div class = "fixed-right">
@@ -55,7 +71,7 @@
                     <%end%>
                     <%if can? :update, author%>
                         <td>
-                            <div class = "col-md-2 btn-group center-div">
+                            <div class = "center-div btn-group">
                                 <%= link_to("Edit",edit_author_path(author),remote: true,:class => "btn btn-primary")%>
                                 <%= link_to("Delete",delete_author_path(author), :remote => true, :class => "btn btn-danger")%>
                             </div>
@@ -66,3 +82,4 @@
             </tbody>
     </table>    
 <div>
+

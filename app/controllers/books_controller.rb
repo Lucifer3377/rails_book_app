@@ -11,8 +11,6 @@ class BooksController < ApplicationController
   end
 
   def index
-    puts "\n\n\n************#{params[:search]}*****************\n\n\n"
-
     if params[:author_id].present?
       @books = Book.where(:author_id => params[:author_id]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 20)  
     elsif !params[:search].blank?
@@ -32,9 +30,7 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(param_permit)
     date = DateTime.new(params["book"]["date_of_prod(1i)"].to_i,params["book"]["date_of_prod(2i)"].to_i,params["book"]["date_of_prod(3i)"].to_i)
-    puts "\n\n\n\n\nDate #{date}\n\n\n\n\n\n"
     @book.date_of_prod = date
-    puts param_permit
     if @book.save
       flash[:notice] = "Book successfully created"
       begin
@@ -45,7 +41,7 @@ class BooksController < ApplicationController
         redirect_to books_path
       end
     else
-      flash[:error] = "Error in creating a book"
+      flash[:alert] = "Error in creating a book"
       render("new")
     end
   end
@@ -59,7 +55,6 @@ class BooksController < ApplicationController
 
   def update
     @book = Book.find(params[:id])
-    puts "\n\n\nThese are the attributes as usual #{params}\n\n\n"
     # if @book.update_attributes!(param_permit)
     if @book.update(author_id: params[:book][:author_id]) && 
       @book.update(name: params[:book][:name]) && 
@@ -71,7 +66,6 @@ class BooksController < ApplicationController
       @book.update(out_of_stock: params[:book][:out_of_stock])
       #@book.updated_at = Time.now
       date = DateTime.new(params["book"]["date_of_prod(1i)"].to_i,params["book"]["date_of_prod(2i)"].to_i,params["book"]["date_of_prod(3i)"].to_i)
-      puts "\n\n\n\n\nDate #{date}\n\n\n\n\n\n"
       @book.date_of_prod = date
       @book.cover = params[:book][:cover]
       @book.save
@@ -84,7 +78,7 @@ class BooksController < ApplicationController
         redirect_to books_path
       end
     else
-      flash[:error] = "Error in updating book"
+      flash[:alert] = "Error in updating book"
       render("edit")
     end
   end

@@ -59,33 +59,24 @@ class Author
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
         row = Hash[[header, spreadsheet.row(i)].transpose]
-        puts "************#{row}****************"
         author = Author.find_by(name: row["name"]) || new
-        #author.attributes = row.to_hash.slice(*accessible_attributes)
-        puts "**********************#{row.to_hash.slice(*row.to_hash.keys)}****************************"
         author.attributes = row.to_hash.slice(*row.to_hash.keys)
         if(!author.save)
           errors_caught << author.errors.messages
-        end
-        puts "*************************\n\n\nChecking array\n\n\n#{errors_caught}*********************************************"      
-        
-          
+        end          
     end
     rescue RuntimeError => exception
       print_exception(exception)            
     end  
      
     if errors_caught.present?
-      user = User.find_by(id: user_id)
-      puts "*************************\n\n\User object\n\n\n#{user.inspect} and id #{user_id}*********************************************" 
+      user = User.find_by(id: user_id) 
       ImportError.import_error_messages(user,errors_caught).deliver_now
       errors_caught = []
     end
   end
   
   def self.open_spreadsheet(file_name,path)
-    puts "********************************#{file_name}**************************"
-    puts "********************************#{path}**************************"
     case File.extname(file_name)
       when ".csv" then Roo::CSV.new(path)
       when ".xls" then Roo::Excel.new(path)
@@ -99,11 +90,4 @@ class Author
   def drop_the_case
     self.name = self.name.downcase
   end
-  # def self.search(search)
-  #   puts "\n\nInside Search\n\n"
-  #   if search
-  #     puts "\n\nSearching.....\n\n"
-  #     any_of({name: /#{search}/i},{biography: /#{search}/i})
-  #   end
-  # end
 end

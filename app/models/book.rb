@@ -37,12 +37,4 @@ class Book
     books = books.where(price: {"$gte" => search["min_price"],"$lte" => search["max_price"]}) if search["min_price"].present? || search["max_price"].present?
     books
   end
-  
-  # def self.search(search)
-  #   puts "\n\nInside Search\n\n"
-  #   if search
-  #     puts "\n\nSearching.....\n\n"
-  #     any_of({name: /#{search}/i},{s_desc: /#{search}/i},{genre: /#{search}/i})#,{Author.name: /#{search}/i})#,{author: %i[name] => /#{search}/i})
-  #   end
-  # end
 end

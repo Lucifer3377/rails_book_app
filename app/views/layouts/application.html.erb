@@ -8,15 +8,15 @@
   </head>
   <body>
   <nav class="navbar navbar-fixed-top">
-    <div id = "banner">
-      <div class="navbar-header">
-        <%= link_to("Home",authors_trend_path,:class => "navbar-brand")%>
-      </div>
+    <div id = "banner">      
       <ul class="nav navbar-nav" id = "menu">
-          <li class = "nav-item">
+          <li>
+            <%= link_to("Home",authors_trend_path,:class => "nav-link")%>
+          </li>
+          <li>
               <%= link_to("Author",authors_path,:class => "nav-link")%>
           </li>
-          <li class = "nav-item">
+          <li>
               <%= link_to("Book",books_path,:class => "nav-link")%>
           </li>
       </ul>
@@ -56,18 +56,13 @@
   <div id = "allContents" style = "display:none;">
     <%= yield %>
     <% if notice %>
-      <p class="alert alert-success text-center"><%= notice %></p>
+      <p id = "snackbar" style = "--bcolor: var(--color-black);"><%= notice %></p>
     <% end %>
     <% if alert %>
-      <p class="alert alert-danger text-center"><%= alert %></p>
+      <p id = "snackbar" style = "--bcolor: var(--color-fade-red);"><%= alert %></p>
     <% end %>
   </div>
-   <div class="modal-spinner" style = "display:none;" data-backdrop="static" data-keyboard="false"/>
-  <!--
-  <%= javascript_tag do %>
-    window.flashMessages = $.parseJSON('<%=j flash.to_hash.to_json.html_safe %>');
-  <%end %>
-  -->
+  <div class="modal-spinner" style = "display:none;" data-backdrop="static" data-keyboard="false"/>
   <script>
       /*
       $(document).on('readystatechange', function () {
@@ -91,6 +86,27 @@
       }
     });
     */
+
+    $(function() {
+        let nav = document.getElementById('menu'),
+            anchor = nav.getElementsByTagName('a'),
+            list = nav.getElementsByTagName('li'),
+            current = window.location.href.split('?')[0];
+            //current = window.location.pathname.split('/')[0];
+            for (var i = 0; i < anchor.length; i++) {
+              if(anchor[i].href == current) {
+                  list[i].className = "active";
+              }
+        }
+    });
+
+    /*
+    $( '.navbar-nav a' ).on( 'click', function () {
+      $( '.navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
+      $( this ).parent( 'li' ).addClass( 'active' );
+    });
+    */
+
     $(document).on('readystatechange', function () {
       let state = document.readyState
       if (state == 'interactive') {
@@ -102,6 +118,17 @@
           },800);
       }
     });
+
+    if ($('#snackbar').length > 0) {
+      // Get the snackbar DIV
+    let x = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
   </script>
   </body>
 </html>

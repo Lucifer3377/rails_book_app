@@ -1,7 +1,6 @@
 class AuthorsController < ApplicationController
   layout "application"
   before_action :authenticate_user!
-  # before_action :param_permit, only: [:create, :update]
   helper_method :sort_column, :sort_direction
   load_and_authorize_resource :author, :book, :review
   def search
@@ -39,7 +38,7 @@ class AuthorsController < ApplicationController
       end
       
     else
-      flash[:error] = "Error in creating an author"
+      flash[:alert] = "Error in creating an author"
       render(new_author_path)
     end
   end
@@ -55,7 +54,6 @@ class AuthorsController < ApplicationController
     @author = Author.find(params[:id])
     puts param_permit
     if @author.update_attributes(param_permit)
-      #@author.updated_at = Time.now
       flash[:notice] = "Author has been updated successfully"
       begin
         respond_to do |format|
@@ -65,7 +63,7 @@ class AuthorsController < ApplicationController
         redirect_to authors_path
       end
     else
-      flash[:error] = "Error in updating author"
+      flash[:alert] = "Error in updating author"
       render(edit_author_path(@author))
     end
   end
@@ -79,7 +77,7 @@ class AuthorsController < ApplicationController
   def delete
     @author = Author.find(params[:id])
     respond_to do |format|
-      format.js #{render template: "authors/delete.js.erb"}
+      format.js
     end
   end
 
@@ -99,15 +97,13 @@ class AuthorsController < ApplicationController
   def import
     begin  
       checkExt?(params[:file].original_filename)
-      puts "********************************The file name and then worker returns#{params[:file]}**************************"
       worker_job_id = SheetWorker.perform_async(params[:file].original_filename, params[:file].path,current_user.id)
       puts worker_job_id
     rescue
-      redirect_to root_url, alert: "File Not Supported."
-      # render html: "<script>alert('File Not Supported!')</script>".html_safe
+      redirect_to authors_url, alert: "File Not Supported."
       return
     end
-    redirect_to root_url, notice: 'Products imported.'      
+    redirect_to authors_url, notice: 'Products imported.'      
   end
 
   def checkExt?(filename)    
