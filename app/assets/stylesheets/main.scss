@@ -9,7 +9,9 @@ html {
 }
 
 body{
-    // background-image: url(/assets/header.jpg);
+    background-image: url(/assets/flower.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 .text-white{
