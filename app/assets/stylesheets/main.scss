@@ -55,6 +55,9 @@ body{
     background-color: green
 }
 
+table.fixed { table-layout:fixed; }
+table.fixed td { overflow: hidden; }
+
 .center-div{
     margin: auto;
 }

@@ -16,14 +16,19 @@ gem 'autoprefixer-rails'
 #gem 'snackbarjs-rails', '~> 1.0'
 gem 'sass-rails', '>= 3.2'
 
+# gem 'moped', '~> 2.0', '>= 2.0.7'
+gem 'moped', :git => 'git://github.com/mongoid/moped.git'
 #for pagination
 gem "will_paginate_mongoid"
 
 #For authentication
 gem 'devise'
 
-#For authorisation
-gem 'cancancan'
+# #For mongdb aggregation similar s
+# gem 'moped', :git => 'git://github.com/mongoid/moped.git'
+
+#For authorisation    #gem 'cancancan'
+gem 'pundit'
 #Needed in modal
 #gem 'popper_js'
 gem 'jquery-rails'

@@ -2,13 +2,13 @@
 <div class = "container">
     <div id="author-modal" class="modal fade" data-backdrop="static" data-keyboard="false"></div>
     <div class = "row">
-        <div class="digg_pagination col-md-4 col-md-offset-<%= (can? :create,Author) ? 2 : 4%>">
+        <div class="digg_pagination col-md-4 col-md-offset-<%= (policy(Author).new?) ? 2 : 4%>">
             <div class="page_info">
                 <%= page_entries_info @authors %>
             </div>
             <%= will_paginate @authors, :container => false, :inner_window => 1 %>
         </div>
-        <%if can? :create, Author%>
+        <%if policy(Author).new?%>
             <div class = "col-md-2">
                 <%= link_to(new_author_path,remote: true,:class => "action new btn btn-primary m-top-links") do%>
                     <span class="glyphicon glyphicon-plus"></span> New Author
@@ -54,7 +54,7 @@
                 <tr class ="<%= cycle('odd','even')%>">
                     <th><%= sortable "name"%></th>
                     <th>Books</th>
-                    <%if can?(:update, Author)%>
+                    <%if policy(Author).edit?%>
                         <th>Action</th>
                     <%end%>
                 </tr>
@@ -62,14 +62,14 @@
             <tbody>
                 <%@authors.each do |author|%>
                     <tr>
-                    <td><%= link_to(author.name,author_path(author),:class => "btn list-group-item text-capitalize") if can? :read, author%></td>
+                    <td><%= link_to(author.name,author_path(author),:class => "btn list-group-item text-capitalize") if policy(Author).show?%></td>
                     <td>
                     <%if author.books.count > 0%>
-                        <%= link_to(author.books.count,{controller: "books",action: "index",author_id: author.id},:class => "btn list-group-item wordwrap")if can? :read, Book%></td>
+                        <%= link_to(Book.collection.aggregate([{"$match" => {"author_id" => author.id}},{"$group" => {"_id" => "$_id"}}]).count,{controller: "books",action: "index",author_id: author.id},:class => "btn list-group-item wordwrap") if policy(Book).index?%></td>
                     <%else%>
                         <%= author.books.count%>
                     <%end%>
-                    <%if can? :update, author%>
+                    <%if policy(Author).edit?%>
                         <td>
                             <div class = "center-div btn-group">
                                 <%= link_to("Edit",edit_author_path(author),remote: true,:class => "btn btn-primary")%>

@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/mongoid/moped.git
+  revision: cf817ca58a85ed567c2711e4eada163018bde3cf
+  specs:
+    moped (2.0.7)
+      bson (~> 3.0)
+      connection_pool (~> 2.0)
+      optionable (~> 0.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -53,7 +62,6 @@ GEM
     bson_ext (1.5.1)
     builder (3.2.3)
     byebug (10.0.2)
-    cancancan (2.3.0)
     carrierwave (0.11.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -124,10 +132,6 @@ GEM
       mongoid (>= 3.0, < 8.0)
     mongoid_auto_increment_id (0.7.0)
       mongoid (>= 3.1.0, < 4.1.0)
-    moped (2.0.7)
-      bson (~> 3.0)
-      connection_pool (~> 2.0)
-      optionable (~> 0.2.0)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     numerizer (0.1.1)
@@ -138,6 +142,8 @@ GEM
     parser (2.5.1.2)
       ast (~> 2.4.0)
     powerpack (0.1.2)
+    pundit (2.0.0)
+      activesupport (>= 3.0.0)
     rack (1.6.10)
     rack-protection (2.0.4)
       rack
@@ -276,7 +282,6 @@ DEPENDENCIES
   bootstrap-sass (~> 3.2.0)
   bson_ext
   byebug
-  cancancan
   carrierwave (~> 0.11.2)
   carrierwave-mongoid
   devise
@@ -286,6 +291,8 @@ DEPENDENCIES
   jquery-turbolinks
   mongoid
   mongoid_auto_increment_id (= 0.7.0)
+  moped!
+  pundit
   rails (= 4.2.0)
   rmagick
   roo
@@ -304,4 +311,4 @@ DEPENDENCIES
   will_paginate_mongoid
 
 BUNDLED WITH
-   1.16.4
+   1.16.5

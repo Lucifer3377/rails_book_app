@@ -3,6 +3,7 @@
 
 FactoryBot.define do
     factory :random_book,class: Book do
+        # association :author, factory: :random_author
         author_id {Author.all.map {|x| x.id}.sample}
         name {Faker::Book.title}
         s_desc {Faker::Lorem.sentence(6, true, 4)}

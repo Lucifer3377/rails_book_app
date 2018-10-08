@@ -26,7 +26,7 @@ class Book
   
 
   belongs_to :author
-  has_many :reviews, as: :reviewable
+  has_many :reviews, as: :reviewable, :dependent => :delete
 
   scope :instock, ->{where(out_of_stock: false)}
   

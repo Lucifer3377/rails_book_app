@@ -1,15 +1,17 @@
 class ReviewsController < ApplicationController
   layout "application"
   before_action :authenticate_user!
-  load_and_authorize_resource :review
+  # load_and_authorize_resource :review
   def new
     @review = Review.new
+    authorize @review
     @reviewable_type = params[:type]
     @reviewable_id = params[:id]
   end
 
   def create
     @review = Review.new(param_permit)
+    authorize @review
     if @review.save
       @review.reviewable_id = params[:reviewable_id].to_i
       @review.reviewable_type = params[:reviewable_type]
