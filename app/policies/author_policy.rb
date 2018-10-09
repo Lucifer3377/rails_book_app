@@ -1,13 +1,13 @@
 class AuthorPolicy < ApplicationPolicy
   def search? 
-    true
+    user.present?
   end
 
   def trend?
-    true
+    user.present?
   end
 
   def import?
-    user.role == 'Admin'
+    user.present? && user.role == 'Admin'
   end
 end

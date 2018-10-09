@@ -2,9 +2,10 @@ class AuthorsController < ApplicationController
   layout "application"
   before_action :authenticate_user!
   helper_method :sort_column, :sort_direction
+  before_action :authorize_resources
   # load_and_authorize_resource :author, :book, :review
+
   def search
-    authorize Author
     respond_to do |format|
       format.js {render template: "authors/search.js.erb"}
     end
@@ -13,16 +14,15 @@ class AuthorsController < ApplicationController
   def index
     if params[:search].present?
       @authors = Author.find_authors(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 10)
-      authorize Author
+      
     else
       @authors = Author.visible.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 10)
-      authorize Author
+      
     end
   end
 
   def new
     @author = Author.new
-    authorize @author
     respond_to do |format|
       format.js
     end
@@ -30,7 +30,6 @@ class AuthorsController < ApplicationController
 
   def create
     @author = Author.new(param_permit)
-    authorize @author
     puts param_permit
     if @author.save
       flash[:notice] = "Author successfully created"
@@ -50,7 +49,6 @@ class AuthorsController < ApplicationController
 
   def edit
     @author = Author.find(params[:id])
-    authorize @author
     respond_to do |format|
       format.js
     end
@@ -58,7 +56,6 @@ class AuthorsController < ApplicationController
 
   def update
     @author = Author.find(params[:id])
-    authorize @author
     puts param_permit
     if @author.update_attributes(param_permit)
       flash[:notice] = "Author has been updated successfully"
@@ -77,23 +74,19 @@ class AuthorsController < ApplicationController
 
   def show
     @author = Author.find(params[:id])
-    authorize @author
     @reviews = @author.reviews
     @id = @author.id
   end
 
   def delete
     @author = Author.find(params[:id])
-    authorize @author
     respond_to do |format|
       format.js
     end
   end
 
   def destroy
-    @author = Author.find(params[:id])
-    authorize @author
-    @author.destroy
+    @author = Author.find(params[:id]).destroy
     flash[:notice] = "Author removed successfully"
     respond_to do |format|
       format.js {render inline: "location.reload();" }
@@ -102,13 +95,10 @@ class AuthorsController < ApplicationController
 
   def trend
     @authors = Author.all.select {|author| author.reviews.count >= 3}
-    authorize Author
     @books = Book.all.select {|book| book.reviews.count >= 3}
-    authorize Book
   end
 
   def import
-    authorize Author
     begin  
       checkExt?(params[:file].original_filename)
       worker_job_id = SheetWorker.perform_async(params[:file].original_filename, params[:file].path,current_user.id)
@@ -120,7 +110,30 @@ class AuthorsController < ApplicationController
     redirect_to authors_url, notice: 'Products imported.'      
   end
 
-private
+  private
+
+  def authorize_resources
+    if params[:action] == "index"
+      authorize Author
+    elsif params[:action] == "search"
+      authorize Author
+    elsif params[:action] == "show"
+      authorize Author.new
+      authorize Review
+    elsif params[:action] == "new" || params[:action] == "create"
+      authorize Author.new
+    elsif params[:action] == "delete" || params[:action] == "destroy"
+      authorize Author.new
+    elsif params[:action] == "edit" || params[:action] == "update"
+      authorize Author.new
+    elsif params[:action] == "import"
+      authorize Author
+    elsif params[:action] == "trend"
+      authorize Author
+      authorize Book
+    end
+  end
+
   def checkExt?(filename)    
     case File.extname(filename)
       when ".csv" then true

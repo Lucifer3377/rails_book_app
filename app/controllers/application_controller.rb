@@ -14,4 +14,14 @@ class ApplicationController < ActionController::Base
   #     format.html { redirect_to main_app.root_url, :alert => exception.message }
   #   end
   # end
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  
+
+  private
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
+  end
 end

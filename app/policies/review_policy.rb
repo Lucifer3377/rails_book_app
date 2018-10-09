@@ -1,9 +1,5 @@
 class ReviewPolicy < ApplicationPolicy
-  def trend?
-    true
-  end
-
   def create?
-    true
+    user.present?
   end
 end

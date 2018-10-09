@@ -65,7 +65,7 @@
                     <td><%= link_to(author.name,author_path(author),:class => "btn list-group-item text-capitalize") if policy(Author).show?%></td>
                     <td>
                     <%if author.books.count > 0%>
-                        <%= link_to(Book.collection.aggregate([{"$match" => {"author_id" => author.id}},{"$group" => {"_id" => "$_id"}}]).count,{controller: "books",action: "index",author_id: author.id},:class => "btn list-group-item wordwrap") if policy(Book).index?%></td>
+                        <%= link_to(Author.getBookCount(author.id),{controller: "books",action: "index",author_id: author.id},:class => "btn list-group-item wordwrap") if policy(Book).index?%></td>
                     <%else%>
                         <%= author.books.count%>
                     <%end%>

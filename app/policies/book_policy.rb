@@ -1,9 +1,9 @@
 class BookPolicy < ApplicationPolicy
   def search? 
-    true
+    user.present?
   end
   
   def trend?
-    true
+    user.present?
   end
 end

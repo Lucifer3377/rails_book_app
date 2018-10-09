@@ -16,7 +16,7 @@ class ApplicationPolicy
   end
 
   def create?
-    user.role == 'Admin'
+    user.present? && user.role == 'Admin'
   end
 
   def new?
@@ -24,7 +24,7 @@ class ApplicationPolicy
   end
 
   def update?
-    user.role == 'Admin'
+    user.present? && user.role == 'Admin'
   end
 
   def edit?
@@ -36,7 +36,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    user.role == 'Admin'
+    user.present? && user.role == 'Admin'
   end
 
   class Scope

@@ -75,6 +75,10 @@ class Author
       errors_caught = []
     end
   end
+
+  def self.getBookCount(id)
+    Book.collection.aggregate([{"$match" => {"author_id" => id}},{"$group" => {"_id" => "$_id"}}]).count
+  end
   
   def self.open_spreadsheet(file_name,path)
     case File.extname(file_name)
