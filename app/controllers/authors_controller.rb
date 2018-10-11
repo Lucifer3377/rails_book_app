@@ -12,6 +12,7 @@ class AuthorsController < ApplicationController
   end
   
   def index
+    Author.loadBookArray            #initialise array having book counts
     if params[:search].present?
       @authors = Author.find_authors(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:page => params[:page], :per_page => 10)
       
@@ -30,7 +31,6 @@ class AuthorsController < ApplicationController
 
   def create
     @author = Author.new(param_permit)
-    puts param_permit
     if @author.save
       flash[:notice] = "Author successfully created"
       begin
@@ -56,7 +56,6 @@ class AuthorsController < ApplicationController
 
   def update
     @author = Author.find(params[:id])
-    puts param_permit
     if @author.update_attributes(param_permit)
       flash[:notice] = "Author has been updated successfully"
       begin
@@ -75,7 +74,6 @@ class AuthorsController < ApplicationController
   def show
     @author = Author.find(params[:id])
     @reviews = @author.reviews
-    @id = @author.id
   end
 
   def delete
@@ -102,7 +100,6 @@ class AuthorsController < ApplicationController
     begin  
       checkExt?(params[:file].original_filename)
       worker_job_id = SheetWorker.perform_async(params[:file].original_filename, params[:file].path,current_user.id)
-      puts worker_job_id
     rescue
       redirect_to authors_url, alert: "File Not Supported."
       return

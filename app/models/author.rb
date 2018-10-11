@@ -24,7 +24,8 @@ class Author
 
   scope :search, lambda {|q| where(:id => q)}
   scope :visible, ->{ where(active: true) }
-
+  
+  @@book_array = []
   def academics_list=(arg)
     self.academics = arg.split(",").map {|v| v.strip}
   end
@@ -76,8 +77,12 @@ class Author
     end
   end
 
+  def self.loadBookArray
+    @@book_array = Book.collection.aggregate([{"$group" => {"_id" => "$author_id","count" => {"$sum" => 1}}}])
+  end
+
   def self.getBookCount(id)
-    Book.collection.aggregate([{"$match" => {"author_id" => id}},{"$group" => {"_id" => "$_id"}}]).count
+    @@book_array.find {|x| x[:_id] == id}[:count]
   end
   
   def self.open_spreadsheet(file_name,path)
