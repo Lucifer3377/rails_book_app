@@ -29,7 +29,7 @@ Rails.application.configure do
     authentication:       'plain',
     enable_starttls_auto: true }
 
-  config.action_mailer.default_url_options = { host: ENV['DEFAULT_HOST'] || 'rails-book-app-heroku.herokuapp.com'}
+  config.action_mailer.default_url_options = { host: ENV['DEFAULT_HOST'] || 'rails-app-heroku.herokuapp.com'}
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
