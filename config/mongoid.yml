@@ -151,4 +151,4 @@ production:
       uri: &lt;%= ENV['MONGODB_URI'] %&gt;
         options:
             skip_version_check: true
-        safe: true
+            safe: true
