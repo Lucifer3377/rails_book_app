@@ -6,9 +6,9 @@ ruby "~> 2.4.4"
 gem 'rails', '4.2.9'
 gem 'mongoid'
 gem 'bson_ext'
-gem 'mongoid_auto_increment_id', "0.7.0"            #To avoid using ObjectID by default
+gem 'mongoid_auto_increment_id'           #To avoid using ObjectID by default
 gem "rmagick"
-gem 'carrierwave', '~> 0.11.2'
+gem 'carrierwave'
 gem "carrierwave-mongoid", :require => 'carrierwave'
 gem 'bootstrap-sass', '~> 3.2.0'
 #gem 'bootstrap', '~> 4.1.3'
