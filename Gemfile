@@ -6,6 +6,7 @@ ruby "~> 2.4.4"
 gem 'rails', '4.2.9'
 gem 'mongoid'
 gem 'bson_ext'
+gem 'pg'
 gem 'mongoid_auto_increment_id'           #To avoid using ObjectID by default
 gem "rmagick"
 gem 'carrierwave'
