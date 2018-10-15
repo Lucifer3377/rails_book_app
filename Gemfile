@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-ruby "~> 2.3.3"
+#ruby "~> 2.3.3"
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.9'
 gem 'mongoid'
 gem 'bson_ext'
 gem 'mongoid_auto_increment_id', "0.7.0"            #To avoid using ObjectID by default
