@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "~> 2.3.3"
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -16,8 +17,11 @@ gem 'autoprefixer-rails'
 #gem 'snackbarjs-rails', '~> 1.0'
 gem 'sass-rails', '>= 3.2'
 
-# gem 'moped', '~> 2.0', '>= 2.0.7'
-gem 'moped', :git => 'git://github.com/mongoid/moped.git'
+#heroku suggested gems to prevent warnings
+#to enable all platform features
+gem 'rails_12factor', '~> 0.0.3'
+
+
 #for pagination
 gem "will_paginate_mongoid"
 
