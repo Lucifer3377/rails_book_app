@@ -17,11 +17,6 @@ gem 'autoprefixer-rails'
 #gem 'snackbarjs-rails', '~> 1.0'
 gem 'sass-rails', '>= 3.2'
 
-#heroku suggested gems to prevent warnings
-#to enable all platform features
-gem 'rails_12factor', '~> 0.0.3'
-
-
 #for pagination
 gem "will_paginate_mongoid"
 
@@ -117,5 +112,11 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+end
+
+group :production do
+  #heroku suggested gems to prevent warnings
+  #to enable all platform features
+  gem 'rails_12factor', '~> 0.0.3'
 end
 
