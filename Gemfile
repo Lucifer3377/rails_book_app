@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-#ruby "~> 2.3.3"
+#ruby "~> 2.4.4"
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -28,7 +28,7 @@ gem "will_paginate_mongoid"
 #For authentication
 gem 'devise'
 
-# #For mongdb aggregation similar s
+# #For mongdb aggregation similar syntax
 # gem 'moped', :git => 'git://github.com/mongoid/moped.git'
 
 #For authorisation    #gem 'cancancan'
