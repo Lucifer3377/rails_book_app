@@ -104,7 +104,7 @@ test:
 production:
   sessions:
     default:
-      uri: <%= ENV['MONGOLAB_URI'] %>
+      uri: <%= ENV['MONGODB_URI'] %>
       options:
         skip_version_check: true
         safe: true
