@@ -19,15 +19,11 @@
  @import "paginate";
  @import "snackbar";
 
- /*.snackbar.error {
-    background-color: red;
-  }
-  .snackbar.alert {
-    background-color: yellow;
-    color: black;
-  }
-  .snackbar.notice {
-    background-color: green;
-  }
-  */
+ body{
+  background-image: image-url("flower.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+}
+
  
