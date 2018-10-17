@@ -9,7 +9,7 @@ html {
 }
 
 body{
-    background-image: url(/assets/flower.jpg);
+    background-image: asset-url("flower.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
